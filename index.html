@@ -1,0 +1,1361 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Venue Asset Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: floating glossy sidebar (left; bottom dock on phones) + glass top bar; every surface is frosted glass with an embossed top highlight and a glossy sheen. Light = green, lemon, lime, teal. Dark = plum, peach, coral, sage, beige. */
+:root{
+  --bg:#EDF6EF; --ink:#12261D; --muted:#587066; --line:rgba(20,80,55,.10);
+  --glass:rgba(255,255,255,.64); --glass-2:rgba(255,255,255,.84); --glass-edge:rgba(255,255,255,.95); --field:rgba(255,255,255,.78);
+  --sheen:rgba(255,255,255,.75); --sheen-end:rgba(255,255,255,0);
+  --emboss:inset 0 1px 0 rgba(255,255,255,1), inset 0 -1px 0 rgba(20,110,80,.07), 0 1px 2px rgba(20,100,70,.07), 0 12px 32px -8px rgba(20,110,80,.20);
+  --press:inset 0 2px 6px rgba(20,100,70,.14), inset 0 -1px 0 rgba(255,255,255,.9);
+  --primary:#17935A; --primary-2:#45C27A; --primary-ink:#FFFFFF; --primary-glow:rgba(23,147,90,.35);
+  --side-a:#3DD3AE; --side-b:#119C80; --side-c:#0A6550; --side-ink:rgba(255,255,255,.82);
+  --side-active:#FFFFFF; --side-active-ink:#0E8A6C;
+  --badge-a:#FFF07A; --badge-b:#E2C514; --badge-ink:#2E2600;
+  --c1:#17935A; --c2:#D9B70F; --c3:#6DB51A; --c4:#0E9E9E;
+  --ok:#128A4D; --ok-soft:rgba(18,138,77,.12); --warn:#9A7A00; --warn-soft:rgba(226,197,20,.20); --bad:#D33A46; --bad-soft:rgba(211,58,70,.12); --info:#0C8996; --info-soft:rgba(12,137,150,.12); --mute-soft:rgba(20,80,55,.07);
+  --glow1:rgba(170,225,60,.32); --glow2:rgba(255,232,90,.34); --streak:rgba(14,158,140,.11);
+  --overlay:rgba(10,45,35,.32);
+  --f-body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:20px; --r-sm:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#150C15; --ink:#F3E9DA; --muted:#B9A8A4; --line:rgba(243,233,218,.08);
+  --glass:rgba(42,24,42,.58); --glass-2:rgba(56,33,55,.76); --glass-edge:rgba(255,230,215,.10); --field:rgba(0,0,0,.32);
+  --sheen:rgba(255,236,220,.07); --sheen-end:rgba(255,236,220,0);
+  --emboss:inset 0 1px 0 rgba(255,236,220,.11), inset 0 -1px 0 rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.02), 0 18px 40px -10px rgba(0,0,0,.7);
+  --press:inset 0 2px 8px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,236,220,.06);
+  --primary:#FF7D69; --primary-2:#FFB68E; --primary-ink:#2A0D10; --primary-glow:rgba(255,125,105,.35);
+  --side-a:#9A5596; --side-b:#6F3570; --side-c:#3D1A3E; --side-ink:rgba(243,233,218,.74);
+  --side-active:rgba(255,236,220,.17); --side-active-ink:#FFF4E8;
+  --badge-a:#C4DFBC; --badge-b:#8DB38A; --badge-ink:#142213;
+  --c1:#FFB68E; --c2:#FF7D69; --c3:#9FC39E; --c4:#E4D2B4;
+  --ok:#A9D3A2; --ok-soft:rgba(159,195,158,.15); --warn:#FFC390; --warn-soft:rgba(255,182,142,.15); --bad:#FF5E70; --bad-soft:rgba(255,94,112,.15); --info:#D9A6D4; --info-soft:rgba(217,166,212,.15); --mute-soft:rgba(243,233,218,.07);
+  --glow1:rgba(255,125,105,.18); --glow2:rgba(159,195,158,.13); --streak:rgba(255,182,142,.20);
+  --overlay:rgba(10,0,10,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#150C15; --ink:#F3E9DA; --muted:#B9A8A4; --line:rgba(243,233,218,.08);
+  --glass:rgba(42,24,42,.58); --glass-2:rgba(56,33,55,.76); --glass-edge:rgba(255,230,215,.10); --field:rgba(0,0,0,.32);
+  --sheen:rgba(255,236,220,.07); --sheen-end:rgba(255,236,220,0);
+  --emboss:inset 0 1px 0 rgba(255,236,220,.11), inset 0 -1px 0 rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.02), 0 18px 40px -10px rgba(0,0,0,.7);
+  --press:inset 0 2px 8px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,236,220,.06);
+  --primary:#FF7D69; --primary-2:#FFB68E; --primary-ink:#2A0D10; --primary-glow:rgba(255,125,105,.35);
+  --side-a:#9A5596; --side-b:#6F3570; --side-c:#3D1A3E; --side-ink:rgba(243,233,218,.74);
+  --side-active:rgba(255,236,220,.17); --side-active-ink:#FFF4E8;
+  --badge-a:#C4DFBC; --badge-b:#8DB38A; --badge-ink:#142213;
+  --c1:#FFB68E; --c2:#FF7D69; --c3:#9FC39E; --c4:#E4D2B4;
+  --ok:#A9D3A2; --ok-soft:rgba(159,195,158,.15); --warn:#FFC390; --warn-soft:rgba(255,182,142,.15); --bad:#FF5E70; --bad-soft:rgba(255,94,112,.15); --info:#D9A6D4; --info-soft:rgba(217,166,212,.15); --mute-soft:rgba(243,233,218,.07);
+  --glow1:rgba(255,125,105,.18); --glow2:rgba(159,195,158,.13); --streak:rgba(255,182,142,.20);
+  --overlay:rgba(10,0,10,.6); color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:1.55rem;font-weight:800}
+h3{font-size:1.02rem;font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* backdrop: glows + light streaks */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:
+  radial-gradient(55% 45% at 12% 0%, var(--glow1), transparent 70%),
+  radial-gradient(45% 40% at 95% 100%, var(--glow2), transparent 70%),
+  var(--bg)}
+.bg::before,.bg::after{content:"";position:absolute;inset:-20%;filter:blur(1.5px)}
+.bg::before{background:
+  linear-gradient(162deg, transparent 38%, var(--streak) 39.2%, transparent 41%),
+  linear-gradient(162deg, transparent 44%, var(--streak) 44.6%, transparent 45.6%),
+  linear-gradient(18deg, transparent 70%, var(--streak) 71%, transparent 72.5%)}
+.bg::after{background:linear-gradient(200deg, transparent 58%, var(--streak) 59%, transparent 61%);opacity:.7}
+
+/* glass primitives */
+.glass,.panel,.kpi,.topbar,.btn,.modal,.chip,.seg,.banner,.toolbar input[type=search],.toolbar select{
+  background:var(--glass);border:1px solid var(--glass-edge);box-shadow:var(--emboss);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
+.panel,.kpi,.topbar,.modal{position:relative}
+.panel::before,.kpi::before,.topbar::before,.modal::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,var(--sheen) 0%,var(--sheen-end) 42%)}
+.panel > *,.kpi > *,.topbar > *,.modal > *{position:relative}
+
+/* shell */
+.side{position:fixed;z-index:30;left:16px;top:calc(16px + env(safe-area-inset-top,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:78px;
+  border-radius:40px;padding:18px 0;display:flex;flex-direction:column;align-items:center;gap:18px;
+  background:linear-gradient(175deg,var(--side-a) 0%,var(--side-b) 45%,var(--side-c) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 2px 0 0 rgba(255,255,255,.18), inset -6px 0 14px rgba(0,0,0,.18), 0 20px 40px -12px var(--primary-glow), 0 8px 24px rgba(40,30,140,.35)}
+.side::before{content:"";position:absolute;left:8px;top:36px;bottom:36px;width:10px;border-radius:10px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.04) 60%,rgba(255,255,255,0))}
+.side::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 22%)}
+.logo{position:relative;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-weight:800;font-size:.95rem;letter-spacing:.02em;color:#fff;
+  background:linear-gradient(160deg,rgba(255,255,255,.38),rgba(255,255,255,.08));box-shadow:inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 4px rgba(0,0,0,.18), 0 6px 14px rgba(0,0,0,.2)}
+nav.tabs{position:relative;display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center;width:100%;align-items:center}
+nav.tabs button{position:relative;width:48px;height:48px;border-radius:15px;border:0;background:transparent;color:var(--side-ink);cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,transform .2s}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.10)}
+nav.tabs button[aria-current="page"]{background:var(--side-active);color:var(--side-active-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 16px rgba(20,10,90,.35)}
+nav.tabs .lab{position:absolute;left:62px;top:50%;transform:translateY(-50%) translateX(-4px);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s,transform .15s;
+  background:var(--glass-2);color:var(--ink);border:1px solid var(--glass-edge);box-shadow:var(--emboss);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  font-size:.82rem;font-weight:600;padding:6px 10px;border-radius:10px}
+nav.tabs button:hover .lab,nav.tabs button:focus-visible .lab{opacity:1;transform:translateY(-50%)}
+nav.tabs .badge{position:absolute;top:2px;right:0;min-width:18px;height:16px;padding:0 5px;border-radius:99px;font-size:.66rem;font-weight:800;line-height:16px;text-align:center;
+  background:linear-gradient(180deg,var(--badge-a),var(--badge-b));color:var(--badge-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 6px rgba(0,0,0,.3)}
+.lab .ls{display:none}
+.side-foot{position:relative;font-size:.62rem;color:rgba(255,255,255,.6);font-weight:700;letter-spacing:.08em}
+
+.stage{margin-left:110px;min-width:0;padding-inline:16px 20px;padding-block:16px 60px}
+.topbar{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));z-index:20;border-radius:18px;padding:8px 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:1240px;margin:0 auto}
+.crumb{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:12px;font-weight:700;font-size:.88rem;background:var(--glass-2);border:1px solid var(--glass-edge);box-shadow:var(--emboss)}
+.crumb .dot{width:7px;height:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px var(--primary)}
+.org{font-size:.86rem;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+.search{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:8px;padding:0 10px;height:38px;border-radius:12px;background:var(--field);border:1px solid var(--line);box-shadow:var(--press)}
+.search svg{width:16px;height:16px;color:var(--muted);flex:none}
+.search input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-size:.88rem}
+.search kbd{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.seg{display:inline-flex;padding:3px;border-radius:12px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:6px 11px;font-size:.8rem;font-weight:700;color:var(--muted);cursor:pointer;display:inline-flex;gap:5px;align-items:center}
+.seg button svg{width:14px;height:14px}
+.seg button[aria-pressed="true"]{background:linear-gradient(180deg,var(--primary-2),var(--primary));color:var(--primary-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 12px var(--primary-glow)}
+.who{font-size:.8rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.who:empty{display:none}
+
+main{max-width:1240px;margin:0 auto;padding-block:22px 40px;display:flex;flex-direction:column;gap:20px}
+.banner{border-radius:var(--r-sm);padding:12px 14px;font-size:.9rem;border-color:var(--warn-soft)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.head p{margin:4px 0 0;color:var(--muted);max-width:64ch;font-size:.9rem}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:12px;padding:8px 14px;font-weight:700;font-size:.86rem;cursor:pointer;min-height:38px;transition:transform .12s,box-shadow .12s,filter .12s}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translateY(1px);box-shadow:var(--press)}
+.btn.primary{background:linear-gradient(180deg,var(--primary-2) 0%,var(--primary) 100%);color:var(--primary-ink);border-color:transparent;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.15), 0 8px 18px -4px var(--primary-glow)}
+.btn.danger{color:var(--bad)}
+.btn.ghost{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.sm{padding:4px 10px;min-height:30px;font-size:.8rem;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toolbar input[type=search],.toolbar select{border-radius:12px;padding:8px 12px;min-height:40px;max-width:100%}
+.toolbar input[type=search]{flex:1 1 220px;min-width:0;box-shadow:var(--press);background:var(--field)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border-radius:99px;padding:6px 13px;font-size:.82rem;font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{background:linear-gradient(180deg,var(--primary-2),var(--primary));color:var(--primary-ink);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 12px var(--primary-glow)}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:14px}
+.kpi{border-radius:var(--r);padding:14px 16px 13px;display:flex;flex-direction:column;gap:3px;min-width:0;overflow:hidden}
+.kpi .l{font-size:.74rem;font-weight:700;color:var(--kc,var(--c1));display:flex;justify-content:space-between;align-items:center;gap:6px}
+.kpi .l svg{width:16px;height:16px;flex:none}
+.kpi .v{font-size:1.65rem;font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;letter-spacing:-.02em}
+.kpi .s{font-size:.76rem;color:var(--muted)}
+.kpi.bad .v{color:var(--bad)} .kpi.warn .v{color:var(--warn)} .kpi.ok .v{color:var(--ok)}
+.kpis > .kpi:nth-child(4n+1){--kc:var(--c3)} .kpis > .kpi:nth-child(4n+2){--kc:var(--c1)} .kpis > .kpi:nth-child(4n+3){--kc:var(--c4)} .kpis > .kpi:nth-child(4n+4){--kc:var(--c2)}
+
+.panel{border-radius:var(--r);overflow:hidden;min-width:0}
+.panel > .ph{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.panel > .pb{padding:14px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.ovgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.ovgrid{grid-template-columns:1fr}}
+
+.list{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);cursor:pointer;min-width:0;transition:background .15s}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--mute-soft)}
+.row .main{min-width:0}
+.row .t{font-weight:700;overflow-wrap:anywhere}
+.row .m{font-size:.8rem;color:var(--muted);overflow-wrap:anywhere}
+.row .r{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.row.static{cursor:default}
+.empty{padding:30px 18px;text-align:center;color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:10px;align-items:center}
+.empty strong{color:var(--ink);font-size:1.08rem;font-weight:800}
+
+.tag{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.04em;color:var(--ink);background:var(--glass-2);border:1px solid var(--line);border-radius:7px;padding:2px 7px;white-space:nowrap;box-shadow:inset 0 1px 0 var(--sheen)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;border-radius:99px;padding:3px 9px;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor}
+.p-ok{background:var(--ok-soft);color:var(--ok)} .p-warn{background:var(--warn-soft);color:var(--warn)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-info{background:var(--info-soft);color:var(--info)} .p-mute{background:var(--mute-soft);color:var(--muted)}
+
+table.t{width:100%;border-collapse:collapse;font-size:.86rem}
+table.t th{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);text-align:left;font-weight:700;padding:9px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:last-child td{border-bottom:0}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+
+.bar{height:8px;background:var(--mute-soft);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.bar > span{display:block;height:100%;border-radius:99px;background:linear-gradient(180deg,color-mix(in srgb,var(--bc,var(--primary)) 70%,#fff),var(--bc,var(--primary)));box-shadow:0 0 10px color-mix(in srgb,var(--bc,var(--primary)) 55%,transparent)}
+.bar.amber > span{--bc:var(--c2)}
+
+/* overview breakdown + ring */
+.brk{display:flex;flex-direction:column;gap:16px;padding:16px 18px 20px}
+.brk .it{display:flex;flex-direction:column;gap:7px}
+.brk .top{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:600}
+.brk .top .pc{font-weight:800;color:var(--bc);font-variant-numeric:tabular-nums}
+.brk .sub{font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ringwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:28px 18px;min-height:280px}
+.ring{position:relative;width:132px;height:132px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .val b{font-size:1.7rem;font-weight:800;color:var(--c1);letter-spacing:-.02em}
+.ring .val span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ringwrap p{margin:0;color:var(--muted);font-size:.82rem;max-width:30ch}
+
+/* stock-take counter */
+.count-row{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:12px 18px;border-bottom:1px solid var(--line);align-items:center}
+.count-row.done{background:var(--ok-soft)}
+.count-row.short{background:var(--bad-soft)}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--field);overflow:hidden;box-shadow:var(--press)}
+.stepper button{border:0;background:none;width:40px;height:40px;font-size:1.2rem;font-weight:700;cursor:pointer}
+.stepper button:hover{background:var(--mute-soft)}
+.stepper input{width:58px;text-align:center;border:0;border-inline:1px solid var(--line);height:40px;background:transparent;font-variant-numeric:tabular-nums;font-weight:700}
+.count-ctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.count-ctrls select{border:1px solid var(--line);background:var(--field);border-radius:12px;height:42px;padding:0 8px}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:var(--overlay);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+@media (min-width:700px){.overlay{align-items:center;padding:24px}}
+.modal{background:var(--glass-2);width:100%;max-width:640px;max-height:92vh;display:flex;flex-direction:column;border-radius:24px 24px 0 0}
+@media (min-width:700px){.modal{border-radius:24px}}
+.modal .mh{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);gap:8px}
+.modal .mb{padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.modal .mf{padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.f.wide{grid-column:1/-1}
+.f label{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.f input,.f select,.f textarea{border:1px solid var(--line);background:var(--field);border-radius:12px;padding:9px 11px;min-height:40px;width:100%;box-shadow:var(--press)}
+.f textarea{min-height:76px;resize:vertical}
+.f .hint{font-size:.78rem;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+.check input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--primary)}
+.photo{width:100%;max-height:240px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.88rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.mini-list{display:flex;flex-direction:column;gap:6px;font-size:.86rem}
+.mini-list .it{display:flex;justify-content:space-between;gap:8px;padding:9px 11px;background:var(--mute-soft);border-radius:12px;align-items:center}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--glass-2);color:var(--ink);border:1px solid var(--glass-edge);box-shadow:var(--emboss);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:10px 16px;border-radius:12px;font-size:.88rem;font-weight:600;z-index:80;max-width:calc(100% - 32px)}
+
+/* guide */
+.guide{display:flex;flex-direction:column;gap:14px;max-width:72ch}
+.guide ol{margin:0;padding-left:0;list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:12px}
+.guide ol > li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:10px}
+.guide ol > li::before{content:counter(s);font-weight:800;font-size:.95rem;width:30px;height:30px;border-radius:10px;color:#fff;display:grid;place-items:center;
+  background:linear-gradient(170deg,var(--side-a),var(--side-c));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 10px var(--primary-glow)}
+.guide p,.guide li{font-size:.92rem}
+.guide p{margin:0}
+.guide ul{margin:4px 0 0;padding-left:18px}
+.lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.editlist{display:flex;flex-wrap:wrap;gap:6px}
+.editlist .x{display:inline-flex;gap:6px;align-items:center;background:var(--mute-soft);border-radius:99px;padding:4px 6px 4px 12px;font-size:.85rem;font-weight:600}
+.editlist .x button{border:0;background:none;cursor:pointer;color:var(--muted);font-size:1rem;line-height:1;padding:2px 6px}
+
+/* phones: sidebar becomes a glass dock at the bottom */
+@media (max-width:820px){
+  .side{top:auto;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;height:66px;flex-direction:row;padding:0 8px;border-radius:24px;gap:6px}
+  .side::before{left:24px;right:24px;top:6px;bottom:auto;width:auto;height:6px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0))}
+  .logo,.side-foot{display:none}
+  nav.tabs{flex-direction:row;justify-content:space-between;overflow-x:auto;scrollbar-width:none;gap:2px}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs button{width:auto;min-width:46px;height:54px;padding:4px 6px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center;flex:1 0 auto}
+  nav.tabs button svg{width:20px;height:20px}
+  nav.tabs .lab{position:static;opacity:1;transform:none;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0;color:inherit;font-size:.6rem;font-weight:700}
+  nav.tabs .badge{top:0;right:2px}
+  .lab .lf{display:none} .lab .ls{display:inline}
+  nav.tabs button{min-width:44px;padding:4px 3px}
+  .stage{margin-left:0;padding-inline:16px;padding-block:12px 110px}
+  .org{display:none}
+}
+/* palette picker */
+.palbtn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px 0 10px;border-radius:12px;font-weight:700;font-size:.8rem;cursor:pointer;color:var(--ink)}
+.palbtn svg{width:16px;height:16px}
+.palbtn .dots{display:inline-flex}
+.palbtn .dots i{width:12px;height:12px;border-radius:50%;margin-left:-4px;border:1.5px solid var(--glass-2);box-shadow:inset 0 1px 1px rgba(255,255,255,.5),0 1px 3px rgba(0,0,0,.25)}
+.palintro{margin:0;color:var(--muted);font-size:.88rem}
+.palgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:12px}
+.palcard{position:relative;border-radius:18px;padding:8px 8px 12px;background:var(--glass);border:1px solid var(--glass-edge);box-shadow:var(--emboss);cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:9px;transition:transform .15s}
+.palcard:hover{transform:translateY(-2px)}
+.palcard[hidden]{display:none}
+.palcard[aria-pressed="true"]{outline:2.5px solid var(--primary);outline-offset:2px}
+.palcard .tick{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;display:none;place-items:center;background:linear-gradient(180deg,var(--primary-2),var(--primary));color:var(--primary-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 3px 8px var(--primary-glow);z-index:2}
+.palcard .tick svg{width:13px;height:13px}
+.palcard[aria-pressed="true"] .tick{display:grid}
+/* the stage is a fixed dark backdrop in both themes, like a poster */
+.palstage{border-radius:12px;padding:12px 12px 10px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;overflow:hidden;
+  background:radial-gradient(90% 70% at 50% 110%,rgba(255,255,255,.10),transparent 60%),linear-gradient(180deg,#141418,#09090B);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -1px 0 rgba(0,0,0,.6)}
+.palname{font-weight:800;font-size:1.08rem;line-height:1.05;letter-spacing:-.02em;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 6px}
+.palname span{text-shadow:0 1px 0 rgba(255,255,255,.25),0 2px 0 rgba(0,0,0,.45),0 3px 0 rgba(0,0,0,.35),0 8px 14px rgba(0,0,0,.6)}
+.palname i{font-style:normal;color:#EDEDF0;opacity:.75;font-size:.8rem}
+.palsw{display:flex;align-items:flex-end;padding-left:10px;height:50px}
+.sq{width:44px;height:44px;border-radius:13px;margin-left:-10px;background:radial-gradient(110% 80% at 28% 18%,rgba(255,255,255,.5),rgba(255,255,255,0) 52%),var(--sw);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.45),inset 0 -5px 9px rgba(0,0,0,.28),0 8px 14px -4px rgba(0,0,0,.6),0 0 18px -6px var(--sw)}
+.sq:nth-child(odd){transform:rotate(-7deg)} .sq:nth-child(even){transform:rotate(6deg) translateY(-5px)}
+.palsw.steps .sq{width:30px;height:30px;border-radius:10px;margin-left:-6px}
+.palmeta{padding:0 4px;display:flex;flex-direction:column;gap:2px}
+.palmeta b{font-size:.86rem}
+.palmeta span{font-size:.74rem;color:var(--muted);font-style:italic}
+.palmeta code{font-family:var(--f-mono);font-size:.64rem;color:var(--muted);overflow-wrap:anywhere}
+.appear{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="bg" aria-hidden="true"></div>
+<aside class="side" aria-label="Sections">
+  <div class="logo" aria-hidden="true">VR</div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="side-foot" aria-hidden="true">V1</div>
+</aside>
+<div class="stage">
+  <header class="topbar">
+    <span class="crumb"><span class="dot"></span><span id="crumb">Overview</span></span>
+    <span class="org" id="orgName">Venue Asset Register</span>
+    <form class="search" id="gSearch" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gq" type="search" placeholder="Search tag, item or serial…" aria-label="Search the register"><kbd>↵</kbd></form>
+    <button type="button" class="palbtn glass" id="palBtn" aria-label="Colour palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-4-4-7.6-9-7.6z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/></svg><span class="dots" id="palDots"></span><span>Palette</span></button>
+    <div class="seg" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Light</button>
+      <button type="button" data-theme-set="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Dark</button>
+    </div>
+    <span class="who" id="who"></span>
+  </header>
+  <main id="main"></main>
+</div>
+<div id="modalRoot"></div>
+
+<script>
+(() => {
+'use strict';
+/* ---------- state ---------- */
+const S = { settings: null, assets: [], takes: [], incidents: [], maint: [], supplies: [], orders: [] };
+const COL = { assets:'assets', takes:'stocktakes', incidents:'incidents', maint:'maintenance', supplies:'supplies', orders:'orders' };
+const loaded = {};
+let db = null, user = null, store = null, downloads = null, myId = null, readOnly = false, dbState = 'connecting';
+const names = {}; const pendingNames = new Set();
+
+const DEFAULT_LOCATIONS = ['Main Hall','Banquet Hall','Conference Room A','Conference Room B','Boardroom','Reception & Lobby','Kitchen','Restaurant / Bar','Store Room','Generator House','Offices','Toilets','Car Park & Grounds','Security Post'];
+const DEFAULT_CATEGORIES = ['Furniture','Electronics & AV','Kitchen Equipment','Electrical & Power','Air Conditioning','Plumbing & Fixtures','Office Equipment','Decor & Soft Furnishing','Security Equipment','Tools & Machinery','Vehicles','Other'];
+const CONDITIONS = ['Good','Fair','Poor','Broken'];
+
+const settings = () => S.settings || { orgName:'', currency:'₦', locations:[], categories: DEFAULT_CATEGORIES };
+
+/* ---------- utils ---------- */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+const addDays = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + Number(n)); return d.toISOString().slice(0,10); };
+const daysUntil = iso => iso ? Math.round((new Date(iso + 'T12:00:00') - new Date(today() + 'T12:00:00')) / 864e5) : null;
+const fmtDate = iso => iso ? new Date(iso.length === 10 ? iso + 'T12:00:00' : iso).toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'}) : '—';
+const n = v => { const x = Number(v); return isFinite(x) ? x : 0; };
+const moneyShort = v => { try { return settings().currency + new Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(n(v)); } catch (e) { return money(v); } };
+const money = v => settings().currency + n(v).toLocaleString(undefined, {maximumFractionDigits: 0});
+const plural = (k, w) => `${k.toLocaleString()} ${w}${k === 1 ? '' : 's'}`;
+const opts = (list, sel, blank) => (blank != null ? `<option value="">${esc(blank)}</option>` : '') + list.map(o => `<option ${o === sel ? 'selected' : ''}>${esc(o)}</option>`).join('');
+const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+const newTag = cat => ((cat || 'GEN').replace(/[^A-Za-z]/g, '').slice(0,3).toUpperCase() || 'GEN') + '-' + (Date.now().toString(36) + Math.random().toString(36).slice(2,4)).slice(-5).toUpperCase();
+const assetById = id => S.assets.find(a => a.id === id);
+const assetLabel = a => a ? `${a.tag || ''} ${a.name}`.trim() : 'Unknown item';
+const csvCell = v => { const s = String(v ?? ''); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+const toCSV = rows => rows.map(r => r.map(csvCell).join(',')).join('\n');
+const who = id => id ? (names[id] || 'Team member') : '—';
+
+function toast(msg) {
+  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; t.setAttribute('role','status');
+  document.body.appendChild(t); setTimeout(() => t.remove(), 2800);
+}
+function canWrite() { if (!db) { toast('Saving is unavailable in this view.'); return false; } if (readOnly) { toast('You have view-only access to this register.'); return false; } return true; }
+
+/* asset status, derived */
+function assetStatus(a) {
+  if (a.state === 'disposed') return { key:'disposed', label:'Disposed', cls:'p-mute' };
+  if (a.state === 'repair') return { key:'repair', label:'Under repair', cls:'p-info' };
+  const q = n(a.qty), m = n(a.missing);
+  if (q > 0 && m >= q) return { key:'missing', label:'Missing', cls:'p-bad' };
+  if (m > 0) return { key:'partial', label:`${m} missing`, cls:'p-warn' };
+  if (a.condition === 'Broken') return { key:'broken', label:'Broken', cls:'p-warn' };
+  return { key:'ok', label:'In place', cls:'p-ok' };
+}
+const activeAssets = () => S.assets.filter(a => a.state !== 'disposed');
+
+/* ---------- db writes ---------- */
+async function put(col, id, data) {
+  if (!canWrite()) throw new Error('nowrite');
+  try { const ref = id ? db.collection(col).doc(id) : db.collection(col).doc(); await ref.set(data); return ref.id; }
+  catch (e) { handleErr(e); throw e; }
+}
+async function patch(col, id, data) {
+  if (!canWrite()) throw new Error('nowrite');
+  try { await db.collection(col).doc(id).update(data); } catch (e) { handleErr(e); throw e; }
+}
+async function remove(col, id) {
+  if (!canWrite()) throw new Error('nowrite');
+  try { await db.collection(col).doc(id).delete(); } catch (e) { handleErr(e); throw e; }
+}
+function handleErr(e) {
+  const c = e && e.code;
+  if (c === 'invalid_argument') { readOnly = true; toast('That change was not saved. Your access may be view-only.'); }
+  else if (c === 'quota_exceeded') toast('Storage is full. Delete old records to add new ones.');
+  else if (c === 'resource_exhausted') toast('Too many changes at once. Wait a moment and try again.');
+  else toast('Could not save. Check your connection and try again.');
+}
+
+/* ---------- names ---------- */
+function noteIds(ids) {
+  ids.filter(Boolean).forEach(id => { if (!(id in names)) pendingNames.add(id); });
+  if (pendingNames.size && user && user.profiles) {
+    const batch = [...pendingNames]; pendingNames.clear();
+    user.profiles(batch).then(ps => { batch.forEach(id => names[id] = (ps[id] && ps[id].name) || 'Team member'); schedule(); }).catch(() => {});
+  }
+}
+
+/* ---------- modal ---------- */
+function modal(title, body, foot, onMount) {
+  const root = $('#modalRoot');
+  root.innerHTML = `<div class="overlay" id="ov"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <div class="mh"><h3 id="mt">${esc(title)}</h3><button class="btn ghost sm" data-close aria-label="Close">✕</button></div>
+    <div class="mb">${body}</div>${foot ? `<div class="mf">${foot}</div>` : ''}</div></div>`;
+  const ov = $('#ov');
+  ov.addEventListener('click', e => { if (e.target === ov || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', escClose);
+  onMount && onMount(ov);
+  const first = ov.querySelector('.mb input, .mb select, .mb textarea'); first && first.focus({preventScroll:true});
+  return ov;
+}
+function escClose(e) { if (e.key === 'Escape') closeModal(); }
+function closeModal() { $('#modalRoot').innerHTML = ''; document.removeEventListener('keydown', escClose); }
+function confirmBox(title, text, okLabel, onOk, danger) {
+  modal(title, `<p style="margin:0">${text}</p>`, `<button class="btn" data-close>Cancel</button><button class="btn ${danger ? 'danger' : 'primary'}" id="okBtn">${esc(okLabel)}</button>`, ov => {
+    $('#okBtn', ov).onclick = async () => { $('#okBtn', ov).disabled = true; try { await onOk(); closeModal(); } catch (e) { $('#okBtn', ov).disabled = false; } };
+  });
+}
+
+/* ---------- export ---------- */
+async function exportFile(filename, rows) {
+  const data = toCSV(rows);
+  if (downloads) {
+    try { await downloads.save({ filename, data }); toast('Export ready'); return; }
+    catch (e) { if (e && e.code === 'declined') return; }
+  }
+  modal('Copy export', `<p style="margin:0" class="hint">Downloads aren't available here. Copy this CSV and paste it into Excel or Google Sheets.</p><textarea id="csvOut" style="width:100%;min-height:240px;font-family:var(--f-mono);font-size:.75rem;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)" readonly>${esc(data)}</textarea>`,
+    `<button class="btn primary" id="cp">Copy</button>`, ov => {
+      $('#cp', ov).onclick = () => { const ta = $('#csvOut', ov); navigator.clipboard.writeText(ta.value).then(() => toast('Copied'), () => { ta.select(); toast('Press Ctrl+C / long-press to copy'); }); };
+    });
+}
+
+/* ---------- tabs ---------- */
+let cur = 'overview';
+const TABS = [
+  ['overview','Overview','Home'], ['assets','Assets','Assets'], ['stocktake','Stock-take','Count'], ['incidents','Incidents','Incidents'],
+  ['maint','Maintenance','Maintain'], ['supplies','Supplies & orders','Supplies'], ['setup','Guide & setup','Setup']
+];
+const T = {};
+const ICON = {
+  overview: '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+  assets: '<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  stocktake: '<rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M9 13l2 2 4-4"/>',
+  incidents: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M12 8v5"/><path d="M12 16.5v.01"/>',
+  maint: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z"/>',
+  supplies: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11h11.2L21 7H6.2"/>',
+  setup: '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>',
+  value: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  alert: '<path d="M12 3l9.5 17h-19L12 3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'
+};
+const svg = (k, cls) => `<svg ${cls ? `class="${cls}"` : ''} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k] || ''}</svg>`;
+function renderNav() {
+  const overdue = S.maint.filter(m => m.status !== 'done' && m.nextDue && daysUntil(m.nextDue) < 0).length;
+  const low = S.supplies.filter(s => n(s.onHand) <= n(s.reorderLevel)).length;
+  const openInc = S.incidents.filter(i => i.status !== 'Closed').length;
+  const openTake = S.takes.filter(t => t.status === 'open').length;
+  const badge = { maint: overdue, supplies: low, incidents: openInc, stocktake: openTake };
+  $('#tabs').innerHTML = TABS.map(([k, l, sh]) => `<button data-tab="${k}" aria-label="${l}${badge[k] ? ', ' + badge[k] + ' need attention' : ''}" ${k === cur ? 'aria-current="page"' : ''}>${svg(k)}<span class="lab"><span class="lf">${l}</span><span class="ls">${sh}</span></span>${badge[k] ? `<span class="badge">${badge[k]}</span>` : ''}</button>`).join('');
+  $('#orgName').textContent = settings().orgName || 'Venue Asset Register';
+  $('#crumb').textContent = (TABS.find(t => t[0] === cur) || [, ''])[1];
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) go(b.dataset.tab); });
+$('#gSearch').addEventListener('submit', e => { e.preventDefault(); AF.q = $('#gq').value.trim(); AF.loc = AF.cat = AF.st = ''; go('assets'); });
+/* theme: follows the viewer's setting until someone picks Light or Dark here */
+function effectiveTheme() { const a = document.documentElement.getAttribute('data-theme'); if (a === 'dark' || a === 'light') return a; return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+function paintSeg() { const t = effectiveTheme(); $$('[data-theme-set]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === t))); }
+function setTheme(t) { document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('var-theme', t); } catch (e) {} paintSeg(); }
+try { const st = localStorage.getItem('var-theme'); if (st === 'dark' || st === 'light') document.documentElement.setAttribute('data-theme', st); } catch (e) {}
+$$('[data-theme-set]').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.themeSet)));
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paintSeg); } catch (e) {}
+new MutationObserver(paintSeg).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+paintSeg();
+
+/* ---------- colour palettes (per viewer, remembered in this browser) ---------- */
+const PALETTES = [
+  { id:'signature', name:['Lime','Plum'], mood:'Fresh · Calm · Warm', sw:['#17935A','#E2C514','#6F3570','#FFB68E'], note:'Green, lemon, lime and teal by day; plum, peach, coral, sage and beige at night' },
+  { id:'tangerine-indigo', name:['Tangerine','Indigo'], mood:'Bold · Playful · Premium', sw:['#FF8A3D','#433BCA'], ls:'#433BCA', lp:'#E8691C', ds:'#433BCA', dp:'#FF8A3D', pop:'#FF8A3D', bars:['#433BCA','#FF8A3D','#8A7CF0','#FFB27A'] },
+  { id:'purple-lime', name:['Purple','Lime'], mood:'Creative · Energetic · Futuristic', sw:['#6C3FA0','#8CF04A'], ls:'#6C3FA0', lp:'#6C3FA0', ds:'#6C3FA0', dp:'#8CF04A', pop:'#8CF04A', bars:['#6C3FA0','#8CF04A','#A77BD6','#5DBB2A'] },
+  { id:'coral-navy', name:['Coral','Navy'], mood:'Warm · Confident · Modern', sw:['#FF6B5B','#172A46'], ls:'#172A46', lp:'#F2584A', ds:'#22385C', dp:'#FF6B5B', pop:'#FF6B5B', bars:['#172A46','#FF6B5B','#3E6A9E','#FFA195'] },
+  { id:'plum-peach', name:['Plum','Peach'], mood:'Creative · Elegant · Expressive', sw:['#542A52','#FFB39A'], ls:'#542A52', lp:'#542A52', ds:'#5E2F5C', dp:'#FFB39A', pop:'#FFB39A', bars:['#542A52','#FFB39A','#8E4E8C','#E08A70'] },
+  { id:'cobalt-lime', name:['Cobalt','Lime'], mood:'Bold · Energetic · Digital', sw:['#2457FF','#C8FF3D'], ls:'#2457FF', lp:'#2457FF', ds:'#2457FF', dp:'#C8FF3D', pop:'#C8FF3D', bars:['#2457FF','#C8FF3D','#6C8CFF','#8FD400'] },
+  { id:'coral-teal', name:['Coral','Teal'], mood:'Warm · Fresh · Modern', sw:['#FF6B5A','#14B8A6'], ls:'#0F9A8B', lp:'#F2584A', ds:'#0F8A7D', dp:'#FF6B5A', pop:'#FF6B5A', bars:['#14B8A6','#FF6B5A','#0E8A7E','#FF9C8F'] },
+  { id:'lavender-beige', name:['Lavender','Beige'], mood:'Creative · Soft · Timeless', sw:['#A89BE0','#DCC3A0'], ls:'#7E6FC4', lp:'#7E6FC4', ds:'#6D5FB3', dp:'#DCC3A0', pop:'#DCC3A0', bars:['#A89BE0','#DCC3A0','#7E6FC4','#B89C74'] },
+  { id:'rose-olive', name:['Rose','Olive'], mood:'Warm · Calm · Refined', sw:['#C9A0A0','#8A8F6B'], ls:'#767B57', lp:'#A86F74', ds:'#6E7353', dp:'#C9A0A0', pop:'#C9A0A0', bars:['#8A8F6B','#C9A0A0','#6E7353','#B07A7E'] },
+  { id:'sage-cream', name:['Sage','Cream'], mood:'Soft · Natural · Elegant', sw:['#A3B18A','#F2E8CF'], ls:'#6F8058', lp:'#6F8058', ds:'#5E6E49', dp:'#F2E8CF', pop:'#F2E8CF', bars:['#A3B18A','#E2CFA0','#6F8058','#C9B98A'] },
+  { id:'forest', name:['Deep','Forest'], mood:'Grounded · Quiet · Natural', sw:['#051F20','#0B2B26','#163832','#235347','#8EB69B','#DAF1DE'], steps:true, ls:'#235347', lp:'#235347', ds:'#163832', dp:'#8EB69B', pop:'#DAF1DE', bars:['#235347','#8EB69B','#163832','#DAF1DE'] },
+  { id:'mauve', name:['Dusty','Mauve'], mood:'Soft · Warm · Sophisticated', sw:['#3E3239','#6B5560','#9E8189','#C7A9A3','#E8D2C4','#F7EFE7'], steps:true, ls:'#6B5560', lp:'#6B5560', ds:'#4E3E47', dp:'#C7A9A3', pop:'#E8D2C4', bars:['#6B5560','#C7A9A3','#9E8189','#E8D2C4'] },
+  { id:'slate', name:['Midnight','Slate'], mood:'Calm · Serious · Professional', sw:['#06141B','#11212D','#253745','#4A5C6A','#9BA8AB','#CCD0CF'], steps:true, ls:'#253745', lp:'#253745', ds:'#253745', dp:'#9BA8AB', pop:'#CCD0CF', bars:['#253745','#9BA8AB','#4A5C6A','#CCD0CF'] },
+  { id:'blush-rose', name:['Blush Pink','Deep Rose'], mood:'Romantic · Warm · Bold', sw:['#F7B5C3','#8B1E3F'], ls:'#8B1E3F', lp:'#8B1E3F', ds:'#6E1832', dp:'#F7B5C3', pop:'#F7B5C3', bars:['#8B1E3F','#F7B5C3','#C2526F','#E58FA3'] },
+  { id:'midnight-sunset', name:['Midnight Blue','Sunset Orange'], mood:'Calm · Vivid · Adventurous', sw:['#0B1F3B','#FF8A3D'], ls:'#0B1F3B', lp:'#E8691C', ds:'#16325C', dp:'#FF8A3D', pop:'#FF8A3D', bars:['#0B1F3B','#FF8A3D','#3A5A8C','#FFB27A'] },
+  { id:'lavender-plum', name:['Lavender','Plum'], mood:'Dreamy · Royal · Soft', sw:['#C9B4FF','#4B1D6B'], ls:'#4B1D6B', lp:'#4B1D6B', ds:'#4B1D6B', dp:'#C9B4FF', pop:'#C9B4FF', bars:['#4B1D6B','#C9B4FF','#8058B8','#A88BE8'] },
+  { id:'beige-mocha', name:['Warm Beige','Mocha'], mood:'Earthy · Cosy · Grounded', sw:['#F4E7D3','#6B4F3B'], ls:'#6B4F3B', lp:'#6B4F3B', ds:'#5A4232', dp:'#E8D2B4', pop:'#F4E7D3', bars:['#6B4F3B','#C9A882','#8E6F55','#E8D2B4'] },
+  { id:'teal-charcoal', name:['Teal','Charcoal'], mood:'Clean · Focused · Modern', sw:['#148BA6','#232937'], ls:'#232937', lp:'#117A92', ds:'#232937', dp:'#148BA6', pop:'#148BA6', bars:['#148BA6','#232937','#4FB3C9','#5A6275'] },
+  { id:'sunflower-brown', name:['Sunflower','Deep Brown'], mood:'Sunny · Rich · Confident', sw:['#FFC107','#3E2723'], ls:'#3E2723', lp:'#3E2723', ds:'#4E342E', dp:'#FFC107', pop:'#FFC107', bars:['#3E2723','#FFC107','#8D6E63','#E0A100'] },
+  { id:'ice-steel', name:['Ice Blue','Steel Blue'], mood:'Crisp · Clear · Trustworthy', sw:['#E0F2FE','#2563EB'], ls:'#2563EB', lp:'#2563EB', ds:'#1E40AF', dp:'#93C5FD', pop:'#E0F2FE', bars:['#2563EB','#7DB8F5','#1E40AF','#BFE3FD'] },
+  { id:'crimson-black', name:['Crimson','Black'], mood:'Dramatic · Powerful · Luxe', sw:['#891C1C','#0D0D0D'], ls:'#891C1C', lp:'#891C1C', ds:'#5E1414', dp:'#D13B3B', pop:'#D13B3B', bars:['#891C1C','#3A3A3A','#C0392B','#8A8A8A'] },
+  { id:'cyber-grape', name:['Cyber Lime','Grape'], mood:'Electric · Bold · Gaming', sw:['#B6FF00','#3C1A47'], ls:'#3C1A47', lp:'#3C1A47', ds:'#3C1A47', dp:'#B6FF00', pop:'#B6FF00', bars:['#3C1A47','#B6FF00','#7A3E8F','#8CCB00'] },
+  { id:'canopy-citron', name:['Fresh Canopy','Citron'], mood:'Natural · Fresh · Grown-up', sw:['#2D3E2C','#E4FD97'], ls:'#2D3E2C', lp:'#2D3E2C', ds:'#2D3E2C', dp:'#E4FD97', pop:'#E4FD97', bars:['#2D3E2C','#B8D86A','#557A4F','#E4FD97'] },
+  { id:'mantis-milk', name:['Mantis','Milk'], mood:'Lively · Clean · Healthy', sw:['#59C749','#FFFFF1'], ls:'#3E9E30', lp:'#3E9E30', ds:'#2F7A25', dp:'#59C749', pop:'#FFFFF1', bars:['#59C749','#2F7A25','#A6E39C','#86C77A'] },
+  { id:'orchid-jet', name:['Orchid','Jet Black'], mood:'Soft · Elegant · Unique', sw:['#E5BDDF','#1D1D1D'], ls:'#1D1D1D', lp:'#9C5B93', ds:'#1D1D1D', dp:'#E5BDDF', pop:'#E5BDDF', bars:['#9C5B93','#E5BDDF','#3A3A3A','#C88BBE'] },
+  { id:'turquoise-midnight', name:['Turquoise','Midnight'], mood:'Fresh · Deep · Limitless', sw:['#99E1D9','#102552'], ls:'#102552', lp:'#102552', ds:'#102552', dp:'#99E1D9', pop:'#99E1D9', bars:['#102552','#99E1D9','#2E5A9C','#4FB8AC'] },
+  { id:'watermelon-cinder', name:['Watermelon','Cinder'], mood:'Juicy · Bold · Urban', sw:['#E7455B','#242E32'], ls:'#242E32', lp:'#D6334A', ds:'#242E32', dp:'#E7455B', pop:'#E7455B', bars:['#E7455B','#242E32','#F28A98','#5B6B72'] },
+  { id:'mirage-amber', name:['Blue Mirage','Amber Smoke'], mood:'Muted · Calm · Vintage', sw:['#6E88AB','#E9D9C9'], ls:'#4F6A8F', lp:'#4F6A8F', ds:'#4A6385', dp:'#E9D9C9', pop:'#E9D9C9', bars:['#6E88AB','#C9AE92','#4F6A8F','#E9D9C9'] },
+  { id:'twilight-ember', name:['Twilight','Ember'], mood:'Moody · Warm · Cinematic', sw:['#181A2F','#242E49','#37415C','#FDA481','#B4182D','#54162B'], steps:true, nc:['#FDA481','#B4182D'], ls:'#37415C', lp:'#B4182D', ds:'#242E49', dp:'#FDA481', pop:'#FDA481', bars:['#37415C','#FDA481','#B4182D','#54162B'] },
+  { id:'sunset-mulberry', name:['Sunset','Mulberry'], mood:'Warm · Romantic · Dusky', sw:['#1B1931','#44174E','#662249','#A34054','#ED9E59','#E9BCB9'], steps:true, nc:['#ED9E59','#A34054'], ls:'#662249', lp:'#A34054', ds:'#44174E', dp:'#ED9E59', pop:'#ED9E59', bars:['#662249','#ED9E59','#A34054','#E9BCB9'] },
+  { id:'navy-blossom', name:['Navy','Blossom'], mood:'Gentle · Trusted · Fresh', sw:['#0D1E4C','#C48CB3','#E5C9D7','#83A6CE','#26415E','#0B1B32'], steps:true, nc:['#83A6CE','#C48CB3'], ls:'#26415E', lp:'#0D1E4C', ds:'#26415E', dp:'#C48CB3', pop:'#E5C9D7', bars:['#26415E','#C48CB3','#83A6CE','#E5C9D7'] },
+  { id:'velvet-blush', name:['Velvet','Blush'], mood:'Intimate · Rich · Graceful', sw:['#150016','#29104A','#522C5D','#845162','#E3B6B1','#FFE3D8'], steps:true, nc:['#845162','#E3B6B1'], ls:'#522C5D', lp:'#522C5D', ds:'#29104A', dp:'#E3B6B1', pop:'#FFE3D8', bars:['#522C5D','#E3B6B1','#845162','#FFE3D8'] },
+  { id:'lilac-sunset', name:['Lilac','Sunset'], mood:'Dreamy · Warm · Hopeful', sw:['#03122F','#19305C','#413B61','#AE7DAC','#F3DADF','#F1916D'], steps:true, nc:['#AE7DAC','#F1916D'], ls:'#19305C', lp:'#19305C', ds:'#19305C', dp:'#F1916D', pop:'#F1916D', bars:['#19305C','#F1916D','#AE7DAC','#F3DADF'] },
+  { id:'deep-lagoon', name:['Deep','Lagoon'], mood:'Cool · Calm · Clear', sw:['#031716','#032F30','#0A7075','#0C969C','#6BA3BE','#274D60'], steps:true, nc:['#6BA3BE','#0C969C'], ls:'#0A7075', lp:'#0A7075', ds:'#032F30', dp:'#0C969C', pop:'#6BA3BE', bars:['#0A7075','#6BA3BE','#274D60','#0C969C'] },
+  { id:'smoked-plum', name:['Smoked','Plum'], mood:'Quiet · Luxurious · Soft', sw:['#190019','#2B124C','#522B5B','#854F6C','#DFB6B2','#FBE4D8'], steps:true, nc:['#DFB6B2','#854F6C'], ls:'#2B124C', lp:'#522B5B', ds:'#2B124C', dp:'#DFB6B2', pop:'#FBE4D8', bars:['#522B5B','#DFB6B2','#854F6C','#FBE4D8'] },
+  { id:'amethyst', name:['Royal','Amethyst'], mood:'Royal · Creative · Calm', sw:['#49225B','#6E3482','#A56ABD','#E7DBEF','#F5EBFA'], steps:true, nc:['#A56ABD','#E7DBEF'], ls:'#6E3482', lp:'#6E3482', ds:'#49225B', dp:'#A56ABD', pop:'#E7DBEF', bars:['#6E3482','#A56ABD','#49225B','#E7DBEF'] },
+  { id:'forest-copper', name:['Forest','Copper'], mood:'Rugged · Warm · Natural', sw:['#122324','#2F3A32','#545748','#DB9F75','#804012','#3E2411'], steps:true, nc:['#8A9378','#DB9F75'], ls:'#2F3A32', lp:'#804012', ds:'#2F3A32', dp:'#DB9F75', pop:'#DB9F75', bars:['#545748','#DB9F75','#804012','#2F3A32'] }
+];
+const hx = h => { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); };
+const toHex = c => '#' + c.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => { const A = hx(a), B = hx(b); return toHex(A.map((v, i) => v + (B[i] - v) * t)); };
+const rgba = (h, a) => `rgba(${hx(h).join(',')},${a})`;
+const lumi = h => { const c = hx(h).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; };
+const contrast = (a, b) => { const x = lumi(a), y = lumi(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+const textOn = h => contrast(h, '#FFFFFF') >= contrast(h, '#15151B') ? '#FFFFFF' : '#15151B';
+const fit = (c, bg, min, toward) => { let out = c; for (let i = 1; i <= 16 && contrast(out, bg) < min; i++) out = mix(c, toward, i * .06); return out; };
+function palTokens(P, L) {
+  const side = L ? P.ls : P.ds, prim = L ? P.lp : P.dp;
+  const bg = L ? mix(side, '#FFFFFF', .92) : mix(side, '#050507', .88);
+  const t = {};
+  t.bg = bg;
+  t.ink = L ? mix('#111116', side, .18) : mix('#F5F4F2', prim, .08);
+  t.muted = fit(L ? mix('#62626E', side, .3) : mix('#A6A6B0', side, .2), bg, 4.5, L ? '#000000' : '#FFFFFF');
+  t.line = L ? rgba(side, .11) : 'rgba(255,255,255,.08)';
+  t.glass = L ? 'rgba(255,255,255,.64)' : rgba(mix(side, '#18181E', .8), .58);
+  t['glass-2'] = L ? 'rgba(255,255,255,.84)' : rgba(mix(side, '#22222A', .78), .76);
+  t['glass-edge'] = L ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.09)';
+  t.field = L ? 'rgba(255,255,255,.78)' : 'rgba(0,0,0,.32)';
+  t.sheen = L ? 'rgba(255,255,255,.75)' : 'rgba(255,255,255,.07)';
+  t['sheen-end'] = 'rgba(255,255,255,0)';
+  t.emboss = L ? `inset 0 1px 0 #FFFFFF, inset 0 -1px 0 ${rgba(side, .07)}, 0 1px 2px ${rgba(side, .08)}, 0 12px 32px -8px ${rgba(side, .22)}`
+    : 'inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.02), 0 18px 40px -10px rgba(0,0,0,.7)';
+  t.press = L ? `inset 0 2px 6px ${rgba(side, .15)}, inset 0 -1px 0 rgba(255,255,255,.9)` : 'inset 0 2px 8px rgba(0,0,0,.6), inset 0 -1px 0 rgba(255,255,255,.06)';
+  t.primary = prim; t['primary-2'] = mix(prim, '#FFFFFF', .28); t['primary-ink'] = textOn(prim); t['primary-glow'] = rgba(prim, .35);
+  t['side-a'] = mix(side, '#FFFFFF', .22); t['side-b'] = side; t['side-c'] = mix(side, '#000000', .42);
+  t['side-ink'] = 'rgba(255,255,255,.8)';
+  t['side-active'] = L ? '#FFFFFF' : 'rgba(255,255,255,.16)';
+  t['side-active-ink'] = L ? fit(side, '#FFFFFF', 3, '#000000') : '#FFFFFF';
+  t['badge-a'] = mix(P.pop, '#FFFFFF', .3); t['badge-b'] = P.pop; t['badge-ink'] = textOn(P.pop);
+  P.bars.forEach((c, i) => t['c' + (i + 1)] = fit(c, bg, 3, L ? '#000000' : '#FFFFFF'));
+  Object.assign(t, L
+    ? { ok:'#14915F', 'ok-soft':'rgba(20,145,95,.12)', warn:'#9A6A00', 'warn-soft':'rgba(214,160,20,.18)', bad:'#D33A46', 'bad-soft':'rgba(211,58,70,.12)', info:'#2F64D0', 'info-soft':'rgba(47,100,208,.12)', 'mute-soft':rgba(side, .07) }
+    : { ok:'#4ADE9A', 'ok-soft':'rgba(74,222,154,.14)', warn:'#F6C453', 'warn-soft':'rgba(246,196,83,.14)', bad:'#FF6470', 'bad-soft':'rgba(255,100,112,.15)', info:'#8AB4FF', 'info-soft':'rgba(138,180,255,.14)', 'mute-soft':'rgba(255,255,255,.07)' });
+  t.glow1 = rgba(side, L ? .28 : .26); t.glow2 = rgba(P.pop, L ? .30 : .13); t.streak = rgba(L ? side : P.pop, L ? .10 : .18);
+  t.overlay = L ? rgba(mix(side, '#000000', .6), .32) : 'rgba(0,0,0,.6)';
+  return Object.entries(t).map(([k, v]) => `--${k}:${v}`).join(';');
+}
+let palId = 'signature';
+function applyPalette(id) {
+  const P = PALETTES.find(x => x.id === id) || PALETTES[0]; palId = P.id;
+  let el = document.getElementById('palStyle');
+  if (P.id === 'signature') { if (el) el.remove(); }
+  else {
+    if (!el) { el = document.createElement('style'); el.id = 'palStyle'; document.head.appendChild(el); }
+    const lt = palTokens(P, true), dk = palTokens(P, false);
+    el.textContent = `:root:root{${lt}}@media (prefers-color-scheme: dark){:root:root:not([data-theme="light"]){${dk};color-scheme:dark}}:root:root[data-theme="dark"]{${dk};color-scheme:dark}`;
+  }
+  $('#palDots').innerHTML = P.sw.slice(0, 3).map(c => `<i style="background:${c}"></i>`).join('');
+  const cur = document.getElementById('appearName'); if (cur) cur.textContent = P.name.join(' × ');
+}
+function setPalette(id) { applyPalette(id); try { localStorage.setItem('var-palette', id); } catch (e) {} }
+function openPalettes() {
+  const tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
+  const cards = PALETTES.map(P => `<button type="button" class="palcard" data-cat="${P.steps ? 'grad' : 'pair'}" data-pal="${P.id}" aria-pressed="${P.id === palId}" aria-label="${P.name.join(' and ')} palette">
+    <span class="tick">${tick}</span>
+    <span class="palstage"><span class="palname"><span style="color:${fit(P.nc ? P.nc[0] : P.steps ? P.sw[4] : P.sw[0], '#101014', 3, '#FFFFFF')}">${P.name[0]}</span><i>×</i><span style="color:${fit(P.nc ? P.nc[1] : P.steps ? P.sw[5] : P.sw[1], '#101014', 3, '#FFFFFF')}">${P.name[1]}</span></span>
+    <span class="palsw ${P.steps ? 'steps' : ''}">${P.sw.map(c => `<span class="sq" style="--sw:${c}"></span>`).join('')}</span></span>
+    <span class="palmeta"><b>${P.name.join(' × ')}</b><span>${P.mood}</span><code>${P.id === 'signature' ? 'Default' : P.sw.join(' ')}</code></span></button>`).join('');
+  const nP = PALETTES.filter(x => !x.steps).length, nG = PALETTES.length - nP;
+  modal('Colour palette', `<p class="palintro">Pick a colour combination. It applies straight away, in both Light and Dark mode, and is remembered in this browser only.</p>
+    <div class="chips" role="group" aria-label="Show palettes"><button class="chip" data-pf="all" aria-pressed="true">All ${PALETTES.length}</button><button class="chip" data-pf="pair" aria-pressed="false">Pairs ${nP}</button><button class="chip" data-pf="grad" aria-pressed="false">Gradients ${nG}</button></div>
+    <div class="palgrid">${cards}</div>`,
+    `<button class="btn primary" data-close>Done</button>`, ov => {
+      $$('[data-pf]', ov).forEach(c => c.onclick = () => { $$('[data-pf]', ov).forEach(x => x.setAttribute('aria-pressed', String(x === c))); $$('.palcard', ov).forEach(card => card.hidden = c.dataset.pf !== 'all' && card.dataset.cat !== c.dataset.pf); });
+      const act = $('.palcard[aria-pressed="true"]', ov); if (act) setTimeout(() => act.scrollIntoView({ block: 'nearest' }), 30);
+      $('.palgrid', ov).addEventListener('click', e => { const b = e.target.closest('[data-pal]'); if (!b) return; setPalette(b.dataset.pal); $$('[data-pal]', ov).forEach(x => x.setAttribute('aria-pressed', String(x === b))); toast((PALETTES.find(x => x.id === b.dataset.pal) || PALETTES[0]).name.join(' × ') + ' applied'); });
+    });
+}
+$('#palBtn').addEventListener('click', openPalettes);
+try { const sp = localStorage.getItem('var-palette'); applyPalette(sp || 'signature'); } catch (e) { applyPalette('signature'); }
+function go(t) {
+  cur = t; try { localStorage.setItem('var-tab', t); } catch (e) {}
+  const main = $('#main'); main.innerHTML = '';
+  if (dbState !== 'ready') main.insertAdjacentHTML('beforeend', `<div class="banner" id="dbBanner">${dbState === 'connecting' ? 'Connecting to the shared register…' : 'The shared register can’t be reached in this view. Open this page while signed in to claude.ai to see and record items.'}</div>`);
+  const m = document.createElement('div'); m.style.display = 'contents'; main.appendChild(m);
+  T[t].shell(m); T[t].update(); renderNav(); window.scrollTo(0, 0);
+}
+let raf = 0;
+function schedule() { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; renderNav(); T[cur].update(); }); }
+
+/* =========================================================
+   OVERVIEW
+   ========================================================= */
+T.overview = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `
+      <div class="head"><div><h2>Where things stand</h2><p>Live totals from the register, the latest stock-take and open incidents. Every figure updates as your team records counts.</p></div>
+      <div class="actions"><button class="btn" data-go="stocktake">Start a stock-take</button><button class="btn primary" data-act="add-asset">Add item</button></div></div>
+      <div class="kpis" id="ovK"></div>
+      <div class="ovgrid"><div class="panel"><div class="ph"><h3>Location breakdown</h3><span class="lbl">% physically verified</span></div><div id="ovLoc"></div></div>
+      <div class="panel"><div class="ringwrap" id="ovRing"></div></div></div>
+      <div class="grid2"><div class="panel"><div class="ph"><h3>Needs attention</h3></div><div class="list" id="ovAtt"></div></div>
+      <div class="panel"><div class="ph"><h3>Recent incidents</h3><button class="btn sm" data-go="incidents">All incidents</button></div><div class="list" id="ovInc"></div></div></div>`);
+    m.addEventListener('click', e => {
+      const g = e.target.closest('[data-go]'); if (g) return go(g.dataset.go);
+      if (e.target.closest('[data-act="add-asset"]')) assetForm();
+      const inc = e.target.closest('[data-inc]'); if (inc) incidentForm(S.incidents.find(i => i.id === inc.dataset.inc));
+    });
+  },
+  update() {
+    const A = activeAssets();
+    const units = A.reduce((s, a) => s + n(a.qty), 0);
+    const value = A.reduce((s, a) => s + n(a.qty) * n(a.unitValue), 0);
+    const missU = A.reduce((s, a) => s + Math.min(n(a.missing), n(a.qty)), 0);
+    const missV = A.reduce((s, a) => s + Math.min(n(a.missing), n(a.qty)) * n(a.unitValue), 0);
+    const counted = A.filter(a => a.lastCounted).length;
+    const overdue = S.maint.filter(m => m.status !== 'done' && m.nextDue && daysUntil(m.nextDue) < 0);
+    const dueSoon = S.maint.filter(m => m.status !== 'done' && m.nextDue && daysUntil(m.nextDue) >= 0 && daysUntil(m.nextDue) <= 14);
+    const low = S.supplies.filter(s => n(s.onHand) <= n(s.reorderLevel));
+    const openInc = S.incidents.filter(i => i.status !== 'Closed');
+    $('#ovK').innerHTML = `
+      <div class="kpi"><span class="l">Items registered${svg('assets')}</span><span class="v">${units.toLocaleString()}</span><span class="s">${plural(A.length, 'record')}</span></div>
+      <div class="kpi"><span class="l">Register value${svg('value')}</span><span class="v" title="${money(value)}">${moneyShort(value)}</span><span class="s">at recorded unit values</span></div>
+      <div class="kpi ${missU ? 'bad' : ''}"><span class="l">Missing / stolen${svg('alert')}</span><span class="v">${missU.toLocaleString()}</span><span class="s">${money(missV)} estimated loss</span></div>
+      <div class="kpi ${A.length && counted < A.length ? 'warn' : 'ok'}"><span class="l">Physically verified${svg('check')}</span><span class="v">${A.length ? Math.round(counted / A.length * 100) : 0}%</span><span class="s">${counted} of ${A.length} records counted</span></div>
+      <div class="kpi ${overdue.length ? 'bad' : ''}"><span class="l">Maintenance overdue${svg('maint')}</span><span class="v">${overdue.length}</span><span class="s">${dueSoon.length} due in 14 days</span></div>
+      <div class="kpi ${low.length ? 'warn' : ''}"><span class="l">Supplies to reorder${svg('supplies')}</span><span class="v">${low.length}</span><span class="s">at or below reorder level</span></div>`;
+    const att = [];
+    S.takes.filter(t => t.status === 'open').forEach(t => { const p = takeProgress(t); att.push(`<div class="row" data-go="stocktake"><span class="pill p-info">Count</span><div class="main"><div class="t">${esc(t.name)}</div><div class="m">${p.counted} of ${p.total} records counted</div></div><div class="r num">${p.total ? Math.round(p.counted / p.total * 100) : 0}%</div></div>`); });
+    openInc.slice(0, 3).forEach(i => att.push(`<div class="row" data-inc="${i.id}"><span class="pill p-bad">${esc(i.type)}</span><div class="main"><div class="t">${esc(i.location || 'Location not set')}</div><div class="m">${fmtDate(i.date)} · ${esc(i.status)}</div></div><div class="r num">${money(incidentValue(i))}</div></div>`));
+    overdue.slice(0, 4).forEach(m => att.push(`<div class="row" data-go="maint"><span class="pill p-bad">Overdue</span><div class="main"><div class="t">${esc(m.title)}</div><div class="m">${esc(m.assetLabel || 'General')} · due ${fmtDate(m.nextDue)}</div></div><div class="r num">${-daysUntil(m.nextDue)}d late</div></div>`));
+    low.slice(0, 4).forEach(s => att.push(`<div class="row" data-go="supplies"><span class="pill p-warn">Low</span><div class="main"><div class="t">${esc(s.name)}</div><div class="m">reorder at ${n(s.reorderLevel)} ${esc(s.unit || '')}</div></div><div class="r num">${n(s.onHand)} left</div></div>`));
+    const unc = A.length - counted;
+    if (unc > 0 && !S.takes.some(t => t.status === 'open')) att.push(`<div class="row" data-go="stocktake"><span class="pill p-warn">Verify</span><div class="main"><div class="t">${plural(unc, 'record')} never physically counted</div><div class="m">Start a stock-take to confirm they are still on site</div></div><div class="r"></div></div>`);
+    $('#ovAtt').innerHTML = att.length ? att.join('') : `<div class="empty"><strong>Nothing urgent</strong>${S.assets.length ? 'No overdue work, open counts or low stock.' : 'Add your locations in Guide & setup, then register items room by room.'}</div>`;
+    const locs = {}; A.forEach(a => { const k = a.location || 'Unassigned'; locs[k] = locs[k] || { u:0, m:0, v:0, r:0, c:0 }; locs[k].u += n(a.qty); locs[k].m += Math.min(n(a.missing), n(a.qty)); locs[k].v += n(a.qty) * n(a.unitValue); locs[k].r++; if (a.lastCounted) locs[k].c++; });
+    const lk = Object.keys(locs).sort((a, b) => locs[b].v - locs[a].v || locs[b].u - locs[a].u).slice(0, 8);
+    const cols = ['var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)'];
+    $('#ovLoc').innerHTML = lk.length ? `<div class="brk">${lk.map((k, i) => { const L = locs[k], pc = Math.round(L.c / L.r * 100); return `<div class="it" style="--bc:${cols[i % 4]}"><div class="top"><span>${esc(k)}</span><span class="pc">${pc}%</span></div><div class="bar"><span style="width:${pc}%"></span></div><div class="sub">${plural(L.u, 'unit')} · ${L.m ? `<b style="color:var(--bad)">${L.m} missing</b>` : 'none missing'} · ${money(L.v)}</div></div>`; }).join('')}</div>`
+      : `<div class="empty">Each room's progress appears here once items are registered.</div>`;
+    const pcAll = A.length ? Math.round(counted / A.length * 100) : 0, C = 2 * Math.PI * 54;
+    $('#ovRing').innerHTML = `<div class="ring"><svg viewBox="0 0 120 120"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--primary-2)"/><stop offset="1" stop-color="var(--primary)"/></linearGradient></defs>
+      <circle cx="60" cy="60" r="54" fill="none" stroke="var(--mute-soft)" stroke-width="7"/>
+      <circle cx="60" cy="60" r="54" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C * pcAll / 100).toFixed(1)} ${C.toFixed(1)}" style="filter:drop-shadow(0 0 6px var(--primary-glow))"/></svg>
+      <div class="val"><b class="num">${pcAll}%</b><span>verified</span></div></div>
+      <h3>Register verification</h3><p>${A.length ? `${counted.toLocaleString()} of ${A.length.toLocaleString()} records physically counted. ${missU ? `${missU.toLocaleString()} units missing so far.` : 'No units missing so far.'}` : 'Register items and run a stock-take to see how much of the estate has been verified.'}</p>`;
+    const inc = [...S.incidents].sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 5);
+    $('#ovInc').innerHTML = inc.length ? inc.map(incRow).join('') : `<div class="empty">No incidents logged. Record each theft or break-in with the items taken so losses can be totalled for police and insurance.</div>`;
+  }
+};
+
+/* =========================================================
+   ASSETS
+   ========================================================= */
+const AF = { q:'', loc:'', cat:'', st:'' };
+T.assets = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `
+      <div class="head"><div><h2>Asset register</h2><p>One record per item, or per batch of identical items (e.g. 300 banquet chairs in Main Hall). Give every record a tag number you can write or stick on the item.</p></div>
+      <div class="actions"><button class="btn" id="aImp">Import CSV</button><button class="btn" id="aExp">Export CSV</button><button class="btn primary" id="aAdd">Add item</button></div></div>
+      <div class="toolbar"><input type="search" id="aQ" placeholder="Search name, tag, serial…" aria-label="Search assets">
+      <select id="aLoc" aria-label="Location"></select><select id="aCat" aria-label="Category"></select>
+      <select id="aSt" aria-label="Status"><option value="">Any status</option><option value="ok">In place</option><option value="partial">Partly missing</option><option value="missing">Missing</option><option value="repair">Under repair</option><option value="broken">Broken</option><option value="uncounted">Not yet counted</option><option value="disposed">Disposed</option></select></div>
+      <div class="lbl" id="aSum"></div>
+      <div class="panel"><div class="list" id="aList"></div></div>
+      <input type="file" id="aFile" accept=".csv,text/csv" hidden>`);
+    $('#aQ').value = AF.q;
+    $('#aQ').oninput = e => { AF.q = e.target.value; this.update(); };
+    ['Loc','Cat','St'].forEach(k => $('#a' + k).onchange = e => { AF[k.toLowerCase()] = e.target.value; this.update(); });
+    $('#aAdd').onclick = () => assetForm();
+    $('#aExp').onclick = exportAssets;
+    $('#aImp').onclick = importHelp;
+    $('#aFile').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) readImport(f); };
+    $('#aList').onclick = e => { const r = e.target.closest('[data-id]'); if (r) assetForm(assetById(r.dataset.id)); };
+  },
+  update() {
+    const st = settings();
+    const locs = [...new Set([...st.locations, ...S.assets.map(a => a.location).filter(Boolean)])];
+    const cats = [...new Set([...st.categories, ...S.assets.map(a => a.category).filter(Boolean)])];
+    $('#aLoc').innerHTML = opts(locs, AF.loc, 'All locations');
+    $('#aCat').innerHTML = opts(cats, AF.cat, 'All categories');
+    $('#aSt').value = AF.st;
+    const q = AF.q.toLowerCase();
+    let rows = S.assets.filter(a => {
+      if (AF.loc && a.location !== AF.loc) return false;
+      if (AF.cat && a.category !== AF.cat) return false;
+      const s = assetStatus(a).key;
+      if (AF.st === 'uncounted') { if (a.lastCounted || a.state === 'disposed') return false; }
+      else if (AF.st) { if (s !== AF.st) return false; }
+      else if (s === 'disposed') return false;
+      if (q && !`${a.name} ${a.tag} ${a.serial} ${a.brand} ${a.notes}`.toLowerCase().includes(q)) return false;
+      return true;
+    }).sort((a, b) => (a.location || '').localeCompare(b.location || '') || (a.name || '').localeCompare(b.name || ''));
+    const u = rows.reduce((s, a) => s + n(a.qty), 0), v = rows.reduce((s, a) => s + n(a.qty) * n(a.unitValue), 0);
+    $('#aSum').textContent = `${plural(rows.length, 'record')} · ${u.toLocaleString()} units · ${money(v)}`;
+    $('#aList').innerHTML = rows.length ? rows.map(a => { const s = assetStatus(a); return `<div class="row" data-id="${a.id}">
+      <span class="tag">${esc(a.tag || '—')}</span>
+      <div class="main"><div class="t">${esc(a.name)}${n(a.qty) > 1 ? ` <span class="num" style="color:var(--muted);font-weight:500">× ${n(a.qty)}</span>` : ''}</div><div class="m">${esc(a.location || 'No location')} · ${esc(a.category || 'Uncategorised')} · ${a.lastCounted ? 'counted ' + fmtDate(a.lastCounted) : 'not yet counted'}</div></div>
+      <div class="r"><span class="pill ${s.cls}">${esc(s.label)}</span><span class="m num">${n(a.unitValue) ? money(n(a.qty) * n(a.unitValue)) : ''}</span></div></div>`; }).join('')
+      : S.assets.length ? `<div class="empty">No items match these filters.</div>`
+      : `<div class="empty"><strong>The register is empty</strong>Walk the building one room at a time and add what you find. For large sets of identical items, add one record with the quantity.<button class="btn primary" id="aAdd2">Add the first item</button></div>`;
+    const a2 = $('#aAdd2'); if (a2) a2.onclick = () => assetForm();
+  }
+};
+
+function assetForm(a, preset) {
+  const st = settings(); const isNew = !a; a = a || Object.assign({ qty:1, missing:0, condition:'Good', state:'active' }, preset || {});
+  const locs = [...new Set([...st.locations, a.location].filter(Boolean))];
+  const cats = [...new Set([...st.categories, a.category].filter(Boolean))];
+  const maint = a.id ? S.maint.filter(m => m.assetId === a.id) : [];
+  const incs = a.id ? S.incidents.filter(i => (i.items || []).some(x => x.assetId === a.id)) : [];
+  const s = a.id ? assetStatus(a) : null;
+  const body = `
+    ${a.photo ? `<img class="photo" src="/_blob/${esc(a.photo)}" alt="Photo of ${esc(a.name)}">` : ''}
+    ${s ? `<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="tag">${esc(a.tag)}</span><span class="pill ${s.cls}">${esc(s.label)}</span><span class="m" style="color:var(--muted);font-size:.85rem">${a.lastCounted ? 'Last counted ' + fmtDate(a.lastCounted) : 'Not yet counted'}</span></div>` : ''}
+    <div class="fields">
+      <div class="f wide"><label for="fName">Item name</label><input id="fName" value="${esc(a.name)}" placeholder="e.g. Samsung 65&quot; LED TV"></div>
+      <div class="f"><label for="fCat">Category</label><select id="fCat">${opts(cats, a.category, 'Choose…')}</select></div>
+      <div class="f"><label for="fLoc">Location</label><select id="fLoc">${opts(locs, a.location, 'Choose…')}</select></div>
+      <div class="f"><label for="fQty">Quantity</label><input id="fQty" type="number" min="0" inputmode="numeric" value="${n(a.qty)}"></div>
+      <div class="f"><label for="fMiss">Units missing</label><input id="fMiss" type="number" min="0" inputmode="numeric" value="${n(a.missing)}"></div>
+      <div class="f"><label for="fVal">Unit value (${esc(st.currency)})</label><input id="fVal" type="number" min="0" inputmode="decimal" value="${a.unitValue ?? ''}" placeholder="replacement cost"></div>
+      <div class="f"><label for="fCond">Condition</label><select id="fCond">${opts(CONDITIONS, a.condition)}</select></div>
+      <div class="f"><label for="fTag">Tag number</label><input id="fTag" value="${esc(a.tag || '')}" placeholder="auto if blank"></div>
+      <div class="f"><label for="fSer">Serial no.</label><input id="fSer" value="${esc(a.serial || '')}"></div>
+      <div class="f"><label for="fBrand">Make / model</label><input id="fBrand" value="${esc(a.brand || '')}"></div>
+      <div class="f"><label for="fState">Service state</label><select id="fState"><option value="active" ${a.state !== 'repair' && a.state !== 'disposed' ? 'selected' : ''}>In service</option><option value="repair" ${a.state === 'repair' ? 'selected' : ''}>Under repair</option><option value="disposed" ${a.state === 'disposed' ? 'selected' : ''}>Disposed / written off</option></select></div>
+      <div class="f wide"><label for="fNotes">Notes</label><textarea id="fNotes" placeholder="Distinguishing marks, where exactly it sits, who uses it…">${esc(a.notes || '')}</textarea></div>
+      ${store ? `<div class="f wide"><label for="fPhoto">Photo</label><input id="fPhoto" type="file" accept="image/*"><span class="hint">A clear photo helps identify the item if it is stolen and recovered.</span></div>` : ''}
+    </div>
+    ${a.id ? `<div class="kv"><dt>Added</dt><dd>${fmtDate(a.createdAt)} by ${esc(who(a.createdBy))}</dd>${a.foundInCount ? `<dt>Origin</dt><dd>Found during stock-take, not on original register</dd>` : ''}</div>` : ''}
+    ${maint.length ? `<div><div class="lbl">Maintenance</div><div class="mini-list">${maint.map(m => `<div class="it"><span>${esc(m.title)}</span><span class="m">${m.status === 'done' ? 'Done' : 'Due ' + fmtDate(m.nextDue)}</span></div>`).join('')}</div></div>` : ''}
+    ${incs.length ? `<div><div class="lbl">Incidents</div><div class="mini-list">${incs.map(i => `<div class="it"><span>${esc(i.type)} · ${fmtDate(i.date)}</span><span class="m">${(i.items.find(x => x.assetId === a.id) || {}).qty || 0} unit(s)</span></div>`).join('')}</div></div>` : ''}`;
+  const foot = `${a.id ? `<button class="btn danger" id="fDel" style="margin-right:auto">Delete</button><button class="btn" id="fFault">Report fault</button>` : ''}<button class="btn" data-close>Cancel</button><button class="btn primary" id="fSave">${isNew ? 'Add item' : 'Save'}</button>${isNew ? '<button class="btn primary" id="fSaveNext">Add & next</button>' : ''}`;
+  modal(isNew ? 'Add item' : a.name, body, foot, ov => {
+    const save = async next => {
+      const name = val('fName'); if (!name) { toast('Give the item a name.'); $('#fName').focus(); return; }
+      const qty = Math.max(0, n(val('fQty')));
+      const data = Object.assign({}, a, {
+        name, category: val('fCat'), location: val('fLoc'), qty, missing: Math.min(qty, Math.max(0, n(val('fMiss')))),
+        unitValue: val('fVal') === '' ? null : n(val('fVal')), condition: val('fCond'), tag: val('fTag') || a.tag || newTag(val('fCat')),
+        serial: val('fSer'), brand: val('fBrand'), state: val('fState'), notes: val('fNotes'), updatedAt: new Date().toISOString(), updatedBy: myId
+      });
+      delete data.id;
+      if (isNew) { data.createdAt = new Date().toISOString(); data.createdBy = myId; }
+      const btns = $$('.mf .btn', ov); btns.forEach(b => b.disabled = true);
+      try {
+        const f = $('#fPhoto') && $('#fPhoto').files[0];
+        if (f && store) { try { const up = await store.upload(f); data.photo = up.id; } catch (e) { toast('Photo not uploaded: ' + (e.code === 'too_large' ? 'file too large.' : 'try a smaller image.')); } }
+        await put(COL.assets, a.id, data);
+        toast(isNew ? `Added ${data.tag}` : 'Saved');
+        if (next) assetForm(null, { category: data.category, location: data.location, condition: data.condition }); else closeModal();
+      } catch (e) { btns.forEach(b => b.disabled = false); }
+    };
+    $('#fSave', ov).onclick = () => save(false);
+    const sn = $('#fSaveNext', ov); if (sn) sn.onclick = () => save(true);
+    const del = $('#fDel', ov); if (del) del.onclick = () => confirmBox('Delete this record?', `This removes <b>${esc(a.name)}</b> from the register for everyone. To keep its history, set it to “Disposed / written off” instead.`, 'Delete record', () => remove(COL.assets, a.id).then(() => toast('Deleted')), true);
+    const fl = $('#fFault', ov); if (fl) fl.onclick = () => maintForm(null, { assetId: a.id, assetLabel: assetLabel(a), kind: 'Repair', title: 'Fault: ' + a.name, nextDue: today(), every: 0 }, true);
+  });
+}
+
+function exportAssets() {
+  const rows = [['Tag','Name','Category','Location','Quantity','Units missing','Condition','Status','Unit value','Total value','Serial','Make/model','Last counted','Notes']];
+  S.assets.forEach(a => rows.push([a.tag, a.name, a.category, a.location, n(a.qty), n(a.missing), a.condition, assetStatus(a).label, a.unitValue ?? '', n(a.qty) * n(a.unitValue), a.serial, a.brand, a.lastCounted || '', a.notes]));
+  exportFile(`asset-register-${today()}.csv`, rows);
+}
+function importHelp() {
+  modal('Import items from CSV', `<p style="margin:0">Use a spreadsheet saved as CSV with a header row. Recognised columns (any order, case-insensitive):</p>
+    <p style="margin:0;font-family:var(--f-mono);font-size:.8rem;background:var(--sunk);padding:10px;border-radius:8px;overflow-wrap:anywhere">Name, Category, Location, Quantity, Unit value, Condition, Tag, Serial, Make/model, Notes</p>
+    <p style="margin:0;color:var(--muted);font-size:.88rem">Only Name is required. Rows with a Tag that already exists update that record; others are added as new items.</p>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn primary" id="pick">Choose CSV file</button>`, ov => { $('#pick', ov).onclick = () => { closeModal(); $('#aFile').click(); }; });
+}
+function parseCSV(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+    else if (c === '"') q = true; else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+function readImport(file) {
+  const fr = new FileReader();
+  fr.onload = () => {
+    const rows = parseCSV(String(fr.result)); if (rows.length < 2) return toast('No rows found in that file.');
+    const H = rows[0].map(h => h.trim().toLowerCase());
+    const col = (...keys) => H.findIndex(h => keys.some(k => h === k || h.startsWith(k)));
+    const ix = { name: col('name','item','description'), cat: col('category'), loc: col('location','room','area'), qty: col('quantity','qty','count'), val: col('unit value','value','cost','price'), cond: col('condition'), tag: col('tag','asset tag','label'), ser: col('serial'), brand: col('make','model','brand'), notes: col('notes','remarks') };
+    if (ix.name < 0) return toast('The file needs a “Name” column.');
+    const items = rows.slice(1).map(r => ({
+      name: (r[ix.name] || '').trim(), category: ix.cat >= 0 ? r[ix.cat].trim() : '', location: ix.loc >= 0 ? r[ix.loc].trim() : '',
+      qty: ix.qty >= 0 ? Math.max(0, n(r[ix.qty])) || 1 : 1, unitValue: ix.val >= 0 && r[ix.val].trim() ? n(r[ix.val].replace(/[^\d.]/g, '')) : null,
+      condition: ix.cond >= 0 && CONDITIONS.includes((r[ix.cond] || '').trim()) ? r[ix.cond].trim() : 'Good',
+      tag: ix.tag >= 0 ? r[ix.tag].trim() : '', serial: ix.ser >= 0 ? r[ix.ser].trim() : '', brand: ix.brand >= 0 ? r[ix.brand].trim() : '', notes: ix.notes >= 0 ? r[ix.notes].trim() : ''
+    })).filter(x => x.name);
+    modal('Confirm import', `<p style="margin:0">${plural(items.length, 'row')} ready to import, ${items.reduce((s, x) => s + x.qty, 0).toLocaleString()} units in total.</p>
+      <div class="mini-list">${items.slice(0, 6).map(x => `<div class="it"><span>${esc(x.name)}</span><span class="m">${esc(x.location)} × ${x.qty}</span></div>`).join('')}${items.length > 6 ? `<div class="m" style="color:var(--muted)">…and ${items.length - 6} more</div>` : ''}</div>`,
+      `<button class="btn" data-close>Cancel</button><button class="btn primary" id="go">Import ${items.length}</button>`, ov => {
+        $('#go', ov).onclick = async () => {
+          $('#go', ov).disabled = true; let done = 0;
+          for (const x of items) {
+            const ex = x.tag && S.assets.find(a => a.tag === x.tag);
+            const data = Object.assign(ex ? Object.assign({}, ex) : { missing: 0, state: 'active', createdAt: new Date().toISOString(), createdBy: myId }, x, { tag: x.tag || newTag(x.category), updatedAt: new Date().toISOString() });
+            delete data.id;
+            try { await put(COL.assets, ex ? ex.id : null, data); done++; $('#go', ov).textContent = `Importing ${done}/${items.length}`; } catch (e) { break; }
+          }
+          closeModal(); toast(`Imported ${done} of ${items.length}`);
+        };
+      });
+  };
+  fr.readAsText(file);
+}
+
+/* =========================================================
+   STOCK-TAKE
+   ========================================================= */
+let openTakeId = null; const SF = { q:'', loc:'', show:'all' };
+function takeScope(t) { const L = t.locations || []; return activeAssets().filter(a => !L.length || L.includes(a.location)); }
+function takeProgress(t) { const sc = takeScope(t), c = t.counts || {}; return { total: sc.length, counted: sc.filter(a => c[a.id]).length }; }
+function takeResults(t) {
+  const c = t.counts || {}; const out = { short: [], surplus: [], ok: [], uncounted: [], shortUnits: 0, shortValue: 0 };
+  takeScope(t).forEach(a => {
+    const r = c[a.id]; if (!r) return out.uncounted.push(a);
+    const d = n(r.found) - n(a.qty);
+    if (d < 0) { out.short.push({ a, found: n(r.found), diff: -d }); out.shortUnits += -d; out.shortValue += -d * n(a.unitValue); }
+    else if (d > 0) out.surplus.push({ a, found: n(r.found), diff: d }); else out.ok.push(a);
+  });
+  return out;
+}
+T.stocktake = {
+  shell(m) { this.m = m; this.mode = null; this.build(); },
+  build() {
+    const m = this.m; const t = openTakeId && S.takes.find(x => x.id === openTakeId);
+    $$('.stk', m).forEach(e => e.remove());
+    this.mode = t ? 'count' : 'list';
+    if (!t) {
+      m.insertAdjacentHTML('beforeend', `<div class="stk head"><div><h2>Stock-takes</h2><p>A stock-take is a timed physical count. Choose the rooms, send teams of two (one counts, one records), and the app compares what's found with the register.</p></div><div class="actions"><button class="btn primary" id="sNew">New stock-take</button></div></div>
+        <div class="stk panel"><div class="list" id="sList"></div></div>`);
+      $('#sNew').onclick = () => takeForm();
+      $('#sList').onclick = e => { const r = e.target.closest('[data-take]'); if (r) { openTakeId = r.dataset.take; this.build(); this.update(); } };
+    } else {
+      m.insertAdjacentHTML('beforeend', `<div class="stk head"><div><button class="btn ghost sm" id="sBack">← All stock-takes</button><h2 id="sTitle"></h2><p id="sMeta"></p></div>
+        <div class="actions"><button class="btn" id="sFound">Found an unlisted item</button><button class="btn" id="sRep">Export report</button><button class="btn primary" id="sRec">Reconcile & close</button></div></div>
+        <div class="stk panel"><div class="pb" style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="lbl" id="sProgL"></span><span class="lbl" id="sShortL"></span></div><div class="bar"><span id="sBar" style="width:0"></span></div></div></div>
+        <div class="stk toolbar"><input type="search" id="sQ" placeholder="Search item or tag…" aria-label="Search items"><select id="sLoc" aria-label="Room"></select>
+          <div class="chips" role="group" aria-label="Show"><button class="chip" data-show="all">All</button><button class="chip" data-show="todo">To count</button><button class="chip" data-show="short">Short</button></div></div>
+        <div class="stk panel"><div class="list" id="sRows"></div></div>`);
+      $('#sBack').onclick = () => { openTakeId = null; this.build(); this.update(); };
+      $('#sQ').value = SF.q; $('#sQ').oninput = e => { SF.q = e.target.value; this.update(); };
+      $('#sLoc').onchange = e => { SF.loc = e.target.value; this.update(); };
+      $$('[data-show]').forEach(b => b.onclick = () => { SF.show = b.dataset.show; this.update(); });
+      $('#sRep').onclick = () => takeReport(t);
+      $('#sRec').onclick = () => reconcile(S.takes.find(x => x.id === openTakeId));
+      $('#sFound').onclick = () => { const tt = S.takes.find(x => x.id === openTakeId); assetForm(null, { location: SF.loc || (tt.locations || [])[0] || '', foundInCount: tt.id, notes: 'Found during ' + tt.name }); };
+      $('#sRows').addEventListener('click', e => this.onRow(e));
+      $('#sRows').addEventListener('change', e => this.onRow(e));
+    }
+  },
+  update() {
+    const t = openTakeId && S.takes.find(x => x.id === openTakeId);
+    if ((t ? 'count' : 'list') !== this.mode) { if (openTakeId && !t && loaded.takes) openTakeId = null; this.build(); }
+    if (this.mode === 'list') {
+      const L = [...S.takes].sort((a, b) => (b.startedAt || '').localeCompare(a.startedAt || ''));
+      $('#sList').innerHTML = L.length ? L.map(t => { const p = takeProgress(t); const r = t.status === 'closed' ? t.summary || {} : null; return `<div class="row" data-take="${t.id}">
+        <span class="pill ${t.status === 'open' ? 'p-info' : 'p-mute'}">${t.status === 'open' ? 'Open' : 'Closed'}</span>
+        <div class="main"><div class="t">${esc(t.name)}</div><div class="m">${fmtDate(t.startedAt)} · ${t.locations && t.locations.length ? esc(t.locations.join(', ')) : 'Whole building'}</div></div>
+        <div class="r num">${r ? `<span style="color:${r.shortUnits ? 'var(--bad)' : 'var(--ok)'};font-weight:600">${r.shortUnits || 0} short</span><span class="m">${money(r.shortValue || 0)}</span>` : `${p.counted}/${p.total}`}</div></div>`; }).join('')
+        : `<div class="empty"><strong>No stock-takes yet</strong>Start with a full count of the whole building to establish what is actually on site today. Read the Guide tab for the counting procedure.</div>`;
+      return;
+    }
+    const sc = takeScope(t), c = t.counts || {}, p = takeProgress(t), res = takeResults(t);
+    const closed = t.status === 'closed';
+    $('#sTitle').textContent = t.name;
+    $('#sMeta').textContent = `${closed ? 'Closed ' + fmtDate(t.closedAt) : 'Started ' + fmtDate(t.startedAt)} · ${t.locations && t.locations.length ? t.locations.join(', ') : 'Whole building'}${t.notes ? ' · ' + t.notes : ''}`;
+    $('#sProgL').textContent = `${p.counted} of ${p.total} records counted`;
+    $('#sShortL').innerHTML = res.shortUnits ? `<span style="color:var(--bad)">${res.shortUnits} units short · ${money(res.shortValue)}</span>` : 'No shortages so far';
+    $('#sBar').style.width = (p.total ? p.counted / p.total * 100 : 0) + '%';
+    $('#sRec').hidden = closed; $('#sFound').hidden = closed;
+    const locs = [...new Set(sc.map(a => a.location || 'Unassigned'))].sort();
+    $('#sLoc').innerHTML = opts(locs, SF.loc, 'All rooms in scope');
+    $$('[data-show]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.show === SF.show)));
+    const q = SF.q.toLowerCase();
+    const rows = sc.filter(a => (!SF.loc || (a.location || 'Unassigned') === SF.loc) && (!q || `${a.name} ${a.tag} ${a.serial}`.toLowerCase().includes(q))
+      && (SF.show === 'all' || (SF.show === 'todo' ? !c[a.id] : c[a.id] && n(c[a.id].found) < n(a.qty))))
+      .sort((a, b) => (a.location || '').localeCompare(b.location || '') || (a.name || '').localeCompare(b.name || ''));
+    const focused = document.activeElement && document.activeElement.dataset && document.activeElement.dataset.found;
+    $('#sRows').innerHTML = rows.length ? rows.map(a => { const r = c[a.id]; const f = r ? n(r.found) : ''; const cls = !r ? '' : n(r.found) < n(a.qty) ? 'short' : 'done';
+      return `<div class="count-row ${cls}" data-aid="${a.id}">
+        <div class="main" style="min-width:0"><div class="t" style="font-weight:600;overflow-wrap:anywhere"><span class="tag">${esc(a.tag)}</span> ${esc(a.name)}</div>
+        <div class="m" style="font-size:.82rem;color:var(--muted)">${esc(a.location || 'Unassigned')} · expected <b class="num">${n(a.qty)}</b>${r ? ` · ${esc(who(r.by))}` : ''}${r && n(r.found) !== n(a.qty) ? ` · <b style="color:${n(r.found) < n(a.qty) ? 'var(--bad)' : 'var(--info)'}">${n(r.found) < n(a.qty) ? (n(a.qty) - n(r.found)) + ' short' : (n(r.found) - n(a.qty)) + ' extra'}</b>` : ''}</div></div>
+        <div class="count-ctrls">${closed ? `<span class="num" style="font-weight:600">${r ? f + ' found' : 'Not counted'}</span>` : `
+          <button class="btn sm" data-all="${a.id}" title="All expected units found">All ${n(a.qty)}</button>
+          <div class="stepper"><button data-step="-1" aria-label="One fewer">−</button><input data-found="${a.id}" inputmode="numeric" value="${f}" placeholder="—" aria-label="Units found"><button data-step="1" aria-label="One more">+</button></div>
+          <select data-cond="${a.id}" aria-label="Condition">${opts(CONDITIONS, (r && r.cond) || a.condition)}</select>`}
+        </div></div>`; }).join('')
+      : `<div class="empty">${sc.length ? 'Nothing matches this filter.' : 'No register items in these rooms yet. Add items first, or use “Found an unlisted item” as you go.'}</div>`;
+    noteIds(Object.values(c).map(r => r.by));
+    if (focused) { const el = $(`[data-found="${focused}"]`); if (el) { el.focus(); el.select && el.select(); } }
+  },
+  async onRow(e) {
+    const t = S.takes.find(x => x.id === openTakeId); if (!t || t.status === 'closed') return;
+    const row = e.target.closest('[data-aid]'); if (!row) return; const aid = row.dataset.aid; const a = assetById(aid); if (!a) return;
+    const prev = (t.counts || {})[aid];
+    let found = prev ? n(prev.found) : null; let cond = prev ? prev.cond : a.condition;
+    if (e.type === 'click') {
+      if (e.target.closest('[data-all]')) found = n(a.qty);
+      else if (e.target.closest('[data-step]')) found = Math.max(0, (found ?? n(a.qty)) + Number(e.target.closest('[data-step]').dataset.step));
+      else return;
+    } else {
+      if (e.target.dataset.found) { const v = e.target.value.trim(); if (v === '') return; found = Math.max(0, Math.round(n(v))); }
+      else if (e.target.dataset.cond) { cond = e.target.value; if (found == null) found = n(a.qty); }
+      else return;
+    }
+    try { await patch(COL.takes, t.id, { counts: { [aid]: { found, cond, by: myId, at: new Date().toISOString() } } }); } catch (err) {}
+  }
+};
+function takeForm() {
+  const st = settings(); const locs = [...new Set([...st.locations, ...S.assets.map(a => a.location).filter(Boolean)])];
+  modal('New stock-take', `
+    <div class="fields"><div class="f wide"><label for="tName">Name</label><input id="tName" value="${esc('Full count ' + fmtDate(today()))}"></div>
+    <div class="f wide"><label>Rooms to count</label><span class="hint">Leave all unticked to count the whole building.</span>
+      <div class="editlist">${locs.map((l, i) => `<label class="x" style="padding-right:12px;cursor:pointer"><input type="checkbox" value="${esc(l)}" id="tl${i}"> ${esc(l)}</label>`).join('') || '<span class="hint">Add locations in Guide & setup first.</span>'}</div></div>
+    <div class="f wide"><label for="tNotes">Teams & notes</label><textarea id="tNotes" placeholder="e.g. Team A: Halls (Tunde & Ada). Team B: Kitchen & stores. Count after 9am, no movement of items during count."></textarea></div></div>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn primary" id="tGo">Start counting</button>`, ov => {
+      $('#tGo', ov).onclick = async () => {
+        const data = { name: val('tName') || 'Stock-take', locations: $$('input[type=checkbox]:checked', ov).map(x => x.value), notes: val('tNotes'), status: 'open', startedAt: new Date().toISOString(), startedBy: myId, counts: {} };
+        $('#tGo', ov).disabled = true;
+        try { openTakeId = await put(COL.takes, null, data); closeModal(); SF.q = ''; SF.loc = ''; SF.show = 'all'; T.stocktake.build(); T.stocktake.update(); } catch (e) { $('#tGo', ov).disabled = false; }
+      };
+    });
+}
+function reconcile(t) {
+  const r = takeResults(t);
+  modal('Reconcile & close', `
+    <p style="margin:0">Closing this stock-take updates the register with what was actually found.</p>
+    <div class="kpis"><div class="kpi ${r.short.length ? 'bad' : 'ok'}"><span class="l">Short</span><span class="v">${r.shortUnits}</span><span class="s">${plural(r.short.length, 'record')} · ${money(r.shortValue)}</span></div>
+    <div class="kpi"><span class="l">Extra found</span><span class="v">${r.surplus.reduce((s, x) => s + x.diff, 0)}</span><span class="s">${plural(r.surplus.length, 'record')}</span></div>
+    <div class="kpi ${r.uncounted.length ? 'warn' : ''}"><span class="l">Not counted</span><span class="v">${r.uncounted.length}</span><span class="s">records</span></div></div>
+    ${r.short.length ? `<div><div class="lbl">Largest shortages</div><div class="mini-list">${r.short.sort((a, b) => b.diff * n(b.a.unitValue) - a.diff * n(a.a.unitValue)).slice(0, 8).map(x => `<div class="it"><span>${esc(x.a.name)} · ${esc(x.a.location || '')}</span><span class="num" style="color:var(--bad);font-weight:600">−${x.diff}</span></div>`).join('')}</div></div>` : ''}
+    ${r.uncounted.length ? `<label class="check"><input type="checkbox" id="rUnc"> Treat the ${r.uncounted.length} uncounted record(s) as <b>not found</b>. Leave unticked to keep them unchanged.</label>` : ''}
+    <label class="check"><input type="checkbox" id="rApply" checked> Update quantities, missing units and condition in the register</label>
+    ${r.short.length ? `<label class="check"><input type="checkbox" id="rInc" checked> Log an incident listing the shortages (for police and insurance)</label>` : ''}`,
+    `<button class="btn" data-close>Not yet</button><button class="btn primary" id="rGo">Close stock-take</button>`, ov => {
+      $('#rGo', ov).onclick = async () => {
+        const btn = $('#rGo', ov); btn.disabled = true;
+        const treatUnc = $('#rUnc', ov) && $('#rUnc', ov).checked, apply = $('#rApply', ov).checked, mkInc = $('#rInc', ov) && $('#rInc', ov).checked;
+        const c = t.counts || {}; const d = today();
+        let short = r.short.slice();
+        if (treatUnc) r.uncounted.forEach(a => short.push({ a, found: 0, diff: n(a.qty) }));
+        try {
+          if (apply) {
+            const list = takeScope(t).filter(a => c[a.id] || (treatUnc && !c[a.id]));
+            let i = 0;
+            for (const a of list) {
+              const rec = c[a.id]; const found = rec ? n(rec.found) : 0; const upd = { lastCounted: d };
+              if (found >= n(a.qty)) { upd.qty = found; upd.missing = 0; } else upd.missing = n(a.qty) - found;
+              if (rec && rec.cond) upd.condition = rec.cond;
+              await patch(COL.assets, a.id, upd); btn.textContent = `Updating ${++i}/${list.length}`;
+            }
+          }
+          if (mkInc && short.length) {
+            await put(COL.incidents, null, { date: d, type: 'Loss found at stock-take', location: (t.locations || []).join(', ') || 'Whole building', status: 'Open',
+              description: `Shortages found during “${t.name}”.`, items: short.map(x => ({ assetId: x.a.id, tag: x.a.tag, name: x.a.name, qty: x.diff, unitValue: n(x.a.unitValue) })),
+              policeRef: '', reportedBy: '', createdAt: new Date().toISOString(), createdBy: myId, appliedToRegister: true, fromTake: t.id });
+          }
+          const sv = short.reduce((s, x) => s + x.diff * n(x.a.unitValue), 0), su = short.reduce((s, x) => s + x.diff, 0);
+          await patch(COL.takes, t.id, { status: 'closed', closedAt: new Date().toISOString(), closedBy: myId, summary: { shortUnits: su, shortValue: sv, shortRecords: short.length, uncounted: r.uncounted.length }, applied: apply });
+          closeModal(); toast('Stock-take closed');
+        } catch (e) { btn.disabled = false; btn.textContent = 'Close stock-take'; }
+      };
+    });
+}
+function takeReport(t) {
+  const c = t.counts || {};
+  const rows = [['Stock-take', t.name], ['Started', fmtDate(t.startedAt)], ['Status', t.status], [], ['Tag','Item','Location','Expected','Found','Difference','Condition','Unit value','Value of difference','Counted by','Counted at']];
+  takeScope(t).forEach(a => { const r = c[a.id]; const diff = r ? n(r.found) - n(a.qty) : ''; rows.push([a.tag, a.name, a.location, n(a.qty), r ? n(r.found) : 'not counted', diff, r ? r.cond : '', a.unitValue ?? '', r ? diff * n(a.unitValue) : '', r ? who(r.by) : '', r ? r.at : '']); });
+  exportFile(`stocktake-${(t.name || 'report').replace(/[^\w-]+/g, '-')}.csv`, rows);
+}
+
+/* =========================================================
+   INCIDENTS
+   ========================================================= */
+const INC_TYPES = ['Theft','Break-in','Vandalism / damage','Loss found at stock-take','Fire / flood','Other'];
+const INC_STATUS = ['Open','Reported to police','Insurance claim filed','Closed'];
+const incidentValue = i => (i.items || []).reduce((s, x) => s + n(x.qty) * n(x.unitValue), 0);
+const incRow = i => `<div class="row" data-inc="${i.id}"><span class="pill ${i.status === 'Closed' ? 'p-mute' : 'p-bad'}">${esc(i.status)}</span>
+  <div class="main"><div class="t">${esc(i.type)} · ${esc(i.location || 'Location not set')}</div><div class="m">${fmtDate(i.date)} · ${plural((i.items || []).reduce((s, x) => s + n(x.qty), 0), 'unit')} affected${i.policeRef ? ' · Police ref ' + esc(i.policeRef) : ''}</div></div>
+  <div class="r num" style="font-weight:600">${money(incidentValue(i))}</div></div>`;
+T.incidents = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `<div class="head"><div><h2>Incident log</h2><p>Record each theft, break-in or loss with the date, place and items affected. The totals here are what you'll give the police and your insurer.</p></div>
+      <div class="actions"><button class="btn" id="iExp">Export CSV</button><button class="btn primary" id="iNew">Log incident</button></div></div>
+      <div class="kpis" id="iK"></div><div class="panel"><div class="list" id="iList"></div></div>`);
+    $('#iNew').onclick = () => incidentForm();
+    $('#iExp').onclick = () => { const rows = [['Date','Type','Location','Status','Police ref','Reported by','Tag','Item','Units','Unit value','Value','Description']]; S.incidents.forEach(i => (i.items && i.items.length ? i.items : [{}]).forEach(x => rows.push([i.date, i.type, i.location, i.status, i.policeRef, i.reportedBy, x.tag || '', x.name || '', x.qty || '', x.unitValue || '', n(x.qty) * n(x.unitValue), i.description]))); exportFile(`incidents-${today()}.csv`, rows); };
+    $('#iList').onclick = e => { const r = e.target.closest('[data-inc]'); if (r) incidentForm(S.incidents.find(i => i.id === r.dataset.inc)); };
+  },
+  update() {
+    const L = [...S.incidents].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const tv = L.reduce((s, i) => s + incidentValue(i), 0), tu = L.reduce((s, i) => s + (i.items || []).reduce((t, x) => t + n(x.qty), 0), 0);
+    $('#iK').innerHTML = `<div class="kpi"><span class="l">Incidents</span><span class="v">${L.length}</span><span class="s">${L.filter(i => i.status !== 'Closed').length} still open</span></div>
+      <div class="kpi bad"><span class="l">Units lost</span><span class="v">${tu.toLocaleString()}</span><span class="s">across all incidents</span></div>
+      <div class="kpi bad"><span class="l">Estimated loss</span><span class="v">${money(tv)}</span><span class="s">at register unit values</span></div>`;
+    $('#iList').innerHTML = L.length ? L.map(incRow).join('') : `<div class="empty"><strong>No incidents logged</strong>If items have already been taken, log what you know now, even if the list is incomplete. You can add items after the stock-take.</div>`;
+  }
+};
+function incidentForm(i) {
+  const isNew = !i; i = i || { date: today(), type: 'Theft', status: 'Open', items: [] };
+  let items = (i.items || []).map(x => Object.assign({}, x));
+  const st = settings(); const locs = [...new Set([...st.locations, i.location].filter(Boolean))];
+  const dl = activeAssets().map(a => `<option value="${esc(a.tag + ' — ' + a.name + ' (' + (a.location || '') + ')')}">`).join('');
+  modal(isNew ? 'Log incident' : i.type + ' · ' + fmtDate(i.date), `
+    <div class="fields">
+      <div class="f"><label for="iDate">Date discovered</label><input id="iDate" type="date" value="${esc(i.date)}"></div>
+      <div class="f"><label for="iType">Type</label><select id="iType">${opts(INC_TYPES, i.type)}</select></div>
+      <div class="f"><label for="iLoc">Where</label><input id="iLoc" list="iLocs" value="${esc(i.location || '')}"><datalist id="iLocs">${locs.map(l => `<option value="${esc(l)}">`).join('')}</datalist></div>
+      <div class="f"><label for="iStat">Status</label><select id="iStat">${opts(INC_STATUS, i.status)}</select></div>
+      <div class="f"><label for="iPol">Police report no.</label><input id="iPol" value="${esc(i.policeRef || '')}"></div>
+      <div class="f"><label for="iBy">Reported by</label><input id="iBy" value="${esc(i.reportedBy || '')}" placeholder="name of staff / guard on duty"></div>
+      <div class="f wide"><label for="iDesc">What happened</label><textarea id="iDesc" placeholder="How entry was made, time window, which doors/windows, CCTV available, guards on duty…">${esc(i.description || '')}</textarea></div>
+      <div class="f wide"><label for="iAct">Action taken</label><textarea id="iAct" placeholder="Locks changed, guard reassigned, items moved to store…">${esc(i.actions || '')}</textarea></div>
+    </div>
+    <div><div class="lbl">Items affected</div>
+      <div class="toolbar" style="margin:6px 0"><input type="search" id="iPick" list="iAssets" placeholder="Type a tag or item name" style="flex:1 1 200px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)"><datalist id="iAssets">${dl}</datalist>
+      <input id="iQty" type="number" min="1" value="1" style="width:76px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg)" aria-label="Units"><button class="btn sm" id="iAdd">Add</button></div>
+      <div class="mini-list" id="iItems"></div></div>
+    ${isNew ? `<label class="check"><input type="checkbox" id="iMark" checked> Mark these units as missing in the register</label>` : ''}`,
+    `${!isNew ? '<button class="btn danger" id="iDel" style="margin-right:auto">Delete</button>' : ''}<button class="btn" data-close>Cancel</button><button class="btn primary" id="iSave">${isNew ? 'Log incident' : 'Save'}</button>`, ov => {
+      const draw = () => { $('#iItems', ov).innerHTML = items.length ? items.map((x, k) => `<div class="it"><span><span class="tag">${esc(x.tag)}</span> ${esc(x.name)} × <b class="num">${n(x.qty)}</b></span><span style="display:flex;gap:6px;align-items:center"><span class="num">${money(n(x.qty) * n(x.unitValue))}</span><button class="btn ghost sm" data-rm="${k}" aria-label="Remove">✕</button></span></div>`).join('') + `<div class="it" style="background:transparent;font-weight:600"><span>Total</span><span class="num">${money(items.reduce((s, x) => s + n(x.qty) * n(x.unitValue), 0))}</span></div>` : `<span class="hint" style="color:var(--muted);font-size:.85rem">No items added yet.</span>`; };
+      draw();
+      $('#iItems', ov).onclick = e => { const b = e.target.closest('[data-rm]'); if (b) { items.splice(Number(b.dataset.rm), 1); draw(); } };
+      $('#iAdd', ov).onclick = () => {
+        const v = val('iPick'); const tag = v.split(' — ')[0].trim();
+        const a = S.assets.find(x => x.tag === tag) || S.assets.find(x => x.name.toLowerCase() === v.toLowerCase());
+        if (!a) return toast('Pick an item from the list, or register it first.');
+        items.push({ assetId: a.id, tag: a.tag, name: a.name, qty: Math.max(1, n(val('iQty'))), unitValue: n(a.unitValue) });
+        $('#iPick', ov).value = ''; $('#iQty', ov).value = 1; draw();
+      };
+      const del = $('#iDel', ov); if (del) del.onclick = () => confirmBox('Delete this incident?', 'The register quantities are not changed by deleting it.', 'Delete', () => remove(COL.incidents, i.id), true);
+      $('#iSave', ov).onclick = async () => {
+        const btn = $('#iSave', ov); btn.disabled = true;
+        const data = Object.assign({}, i, { date: val('iDate') || today(), type: val('iType'), location: val('iLoc'), status: val('iStat'), policeRef: val('iPol'), reportedBy: val('iBy'), description: val('iDesc'), actions: val('iAct'), items, updatedAt: new Date().toISOString() });
+        delete data.id; if (isNew) { data.createdAt = new Date().toISOString(); data.createdBy = myId; }
+        const mark = isNew && $('#iMark', ov) && $('#iMark', ov).checked;
+        if (mark) data.appliedToRegister = true;
+        try {
+          await put(COL.incidents, i.id, data);
+          if (mark) { const agg = {}; items.forEach(x => agg[x.assetId] = (agg[x.assetId] || 0) + n(x.qty)); for (const id in agg) { const a = assetById(id); if (a) await patch(COL.assets, id, { missing: Math.min(n(a.qty), n(a.missing) + agg[id]) }); } }
+          closeModal(); toast(isNew ? 'Incident logged' : 'Saved');
+        } catch (e) { btn.disabled = false; }
+      };
+    });
+}
+
+/* =========================================================
+   MAINTENANCE
+   ========================================================= */
+const MF = { show: 'due' };
+const KINDS = ['Preventive service','Inspection','Repair','Cleaning','Statutory / safety check'];
+T.maint = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `<div class="head"><div><h2>Maintenance</h2><p>Recurring services (generator, ACs, fire extinguishers, lifts) and one-off repairs. Marking a job done logs it and moves the next due date forward.</p></div>
+      <div class="actions"><button class="btn" id="mExp">Export CSV</button><button class="btn primary" id="mNew">New job</button></div></div>
+      <div class="chips" role="group" aria-label="Show"><button class="chip" data-mshow="due">Due & overdue</button><button class="chip" data-mshow="active">All scheduled</button><button class="chip" data-mshow="repair">Repairs</button><button class="chip" data-mshow="done">Completed</button></div>
+      <div class="panel"><div class="list" id="mList"></div></div>`);
+    $('#mNew').onclick = () => maintForm();
+    $$('[data-mshow]').forEach(b => b.onclick = () => { MF.show = b.dataset.mshow; this.update(); });
+    $('#mExp').onclick = () => { const rows = [['Job','Type','Asset','Every (days)','Next due','Assigned to','Status','Last done','Total cost']]; S.maint.forEach(m => rows.push([m.title, m.kind, m.assetLabel || '', m.every || '', m.nextDue || '', m.assignee || '', m.status, (m.log || []).slice(-1)[0]?.date || '', (m.log || []).reduce((s, l) => s + n(l.cost), 0)])); exportFile(`maintenance-${today()}.csv`, rows); };
+    $('#mList').onclick = e => {
+      const d = e.target.closest('[data-done]'); if (d) { e.stopPropagation(); return doneForm(S.maint.find(x => x.id === d.dataset.done)); }
+      const r = e.target.closest('[data-m]'); if (r) maintForm(S.maint.find(x => x.id === r.dataset.m));
+    };
+  },
+  update() {
+    $$('[data-mshow]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mshow === MF.show)));
+    let L = S.maint.filter(m => MF.show === 'done' ? m.status === 'done' : m.status !== 'done');
+    if (MF.show === 'due') L = L.filter(m => m.nextDue && daysUntil(m.nextDue) <= 14);
+    if (MF.show === 'repair') L = L.filter(m => m.kind === 'Repair');
+    L.sort((a, b) => MF.show === 'done' ? (b.completedAt || '').localeCompare(a.completedAt || '') : (a.nextDue || '9').localeCompare(b.nextDue || '9'));
+    $('#mList').innerHTML = L.length ? L.map(m => { const d = daysUntil(m.nextDue); const pill = m.status === 'done' ? ['p-mute', 'Done'] : d == null ? ['p-mute', 'No date'] : d < 0 ? ['p-bad', `${-d}d overdue`] : d === 0 ? ['p-warn', 'Due today'] : d <= 14 ? ['p-warn', `In ${d}d`] : ['p-ok', fmtDate(m.nextDue)];
+      return `<div class="row" data-m="${m.id}"><span class="pill ${pill[0]}">${pill[1]}</span>
+        <div class="main"><div class="t">${esc(m.title)}</div><div class="m">${esc(m.kind)} · ${esc(m.assetLabel || 'General / building')}${m.every ? ` · every ${m.every} days` : ''}${m.assignee ? ' · ' + esc(m.assignee) : ''}</div></div>
+        <div class="r">${m.status !== 'done' ? `<button class="btn sm" data-done="${m.id}">Mark done</button>` : `<span class="m">${fmtDate(m.completedAt)}</span>`}</div></div>`; }).join('')
+      : `<div class="empty">${S.maint.length ? 'Nothing in this view.' : '<strong>No maintenance jobs yet</strong>Start with the equipment that keeps the venue running: generator servicing, AC servicing, fire extinguisher checks, water pumps.'}</div>`;
+  }
+};
+function maintForm(m, preset, faultMode) {
+  const isNew = !m; m = m || Object.assign({ kind: 'Preventive service', every: 90, nextDue: today(), status: 'active', log: [] }, preset || {});
+  const dl = activeAssets().map(a => `<option value="${esc(a.tag + ' — ' + a.name)}">`).join('');
+  modal(isNew ? (faultMode ? 'Report fault' : 'New maintenance job') : m.title, `
+    <div class="fields">
+      <div class="f wide"><label for="mTitle">Job</label><input id="mTitle" value="${esc(m.title || '')}" placeholder="e.g. Generator 500kVA – oil & filter change"></div>
+      <div class="f"><label for="mKind">Type</label><select id="mKind">${opts(KINDS, m.kind)}</select></div>
+      <div class="f"><label for="mAsset">Asset (optional)</label><input id="mAsset" list="mAssets" value="${esc(m.assetLabel || '')}"><datalist id="mAssets">${dl}</datalist></div>
+      <div class="f"><label for="mEvery">Repeat every (days)</label><input id="mEvery" type="number" min="0" value="${n(m.every)}"><span class="hint">0 = one-off job</span></div>
+      <div class="f"><label for="mDue">Next due</label><input id="mDue" type="date" value="${esc(m.nextDue || '')}"></div>
+      <div class="f"><label for="mWho">Assigned to</label><input id="mWho" value="${esc(m.assignee || '')}" placeholder="staff or vendor"></div>
+      <div class="f wide"><label for="mNotes">Notes / fault description</label><textarea id="mNotes">${esc(m.notes || '')}</textarea></div>
+    </div>
+    ${faultMode && m.assetId ? `<label class="check"><input type="checkbox" id="mRep" checked> Set the asset to “Under repair” until this job is done</label>` : ''}
+    ${(m.log || []).length ? `<div><div class="lbl">History</div><div class="mini-list">${[...m.log].reverse().map(l => `<div class="it"><span>${fmtDate(l.date)} · ${esc(l.note || 'Done')}</span><span class="num">${l.cost ? money(l.cost) : ''}</span></div>`).join('')}</div></div>` : ''}`,
+    `${!isNew ? '<button class="btn danger" id="mDel" style="margin-right:auto">Delete</button>' : ''}<button class="btn" data-close>Cancel</button><button class="btn primary" id="mSave">Save</button>`, ov => {
+      const del = $('#mDel', ov); if (del) del.onclick = () => confirmBox('Delete this job?', 'Its service history will be removed too.', 'Delete', () => remove(COL.maint, m.id), true);
+      $('#mSave', ov).onclick = async () => {
+        const title = val('mTitle'); if (!title) return toast('Describe the job.');
+        const al = val('mAsset'); const a = al ? S.assets.find(x => x.tag === al.split(' — ')[0].trim()) : null;
+        const data = Object.assign({}, m, { title, kind: val('mKind'), assetId: a ? a.id : (al ? m.assetId || null : null), assetLabel: a ? assetLabel(a) : al, every: Math.max(0, n(val('mEvery'))), nextDue: val('mDue'), assignee: val('mWho'), notes: val('mNotes'), updatedAt: new Date().toISOString() });
+        delete data.id; if (isNew) { data.createdAt = new Date().toISOString(); data.createdBy = myId; }
+        const btn = $('#mSave', ov); btn.disabled = true;
+        try {
+          await put(COL.maint, m.id, data);
+          if ($('#mRep', ov) && $('#mRep', ov).checked && data.assetId) await patch(COL.assets, data.assetId, { state: 'repair' });
+          closeModal(); toast('Saved');
+        } catch (e) { btn.disabled = false; }
+      };
+    });
+}
+function doneForm(m) {
+  const a = m.assetId && assetById(m.assetId);
+  modal('Mark done', `<p style="margin:0"><b>${esc(m.title)}</b></p>
+    <div class="fields"><div class="f"><label for="dDate">Date done</label><input id="dDate" type="date" value="${today()}"></div>
+    <div class="f"><label for="dCost">Cost (${esc(settings().currency)})</label><input id="dCost" type="number" min="0" inputmode="decimal"></div>
+    <div class="f wide"><label for="dNote">What was done</label><textarea id="dNote" placeholder="Parts replaced, readings, vendor invoice no.…"></textarea></div></div>
+    ${m.every ? `<p class="hint" style="margin:0;color:var(--muted);font-size:.86rem">Next due date will move to ${m.every} days after the date done.</p>` : ''}
+    ${a && a.state === 'repair' ? `<label class="check"><input type="checkbox" id="dBack" checked> Return <b>${esc(a.name)}</b> to service</label>` : ''}`,
+    `<button class="btn" data-close>Cancel</button><button class="btn primary" id="dGo">Mark done</button>`, ov => {
+      $('#dGo', ov).onclick = async () => {
+        const d = val('dDate') || today(); const log = [...(m.log || []), { date: d, note: val('dNote'), cost: n(val('dCost')), by: myId }].slice(-50);
+        const upd = m.every ? { log, nextDue: addDays(d, m.every), lastDone: d } : { log, status: 'done', completedAt: d, lastDone: d };
+        $('#dGo', ov).disabled = true;
+        try { await patch(COL.maint, m.id, upd); if ($('#dBack', ov) && $('#dBack', ov).checked) await patch(COL.assets, a.id, { state: 'active', condition: a.condition === 'Broken' ? 'Fair' : a.condition }); closeModal(); toast('Logged'); }
+        catch (e) { $('#dGo', ov).disabled = false; }
+      };
+    });
+}
+
+/* =========================================================
+   SUPPLIES & ORDERS
+   ========================================================= */
+const ORD_STATUS = ['Requested','Approved','Ordered','Received','Cancelled'];
+T.supplies = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `<div class="head"><div><h2>Supplies & replenishment</h2><p>Consumables and spares you use up (diesel, bulbs, toiletries, cleaning supplies, table linen). Set a reorder level and the app flags when to buy. Replacement orders for stolen items live here too.</p></div>
+      <div class="actions"><button class="btn" id="oNew">New request</button><button class="btn primary" id="spNew">Add supply</button></div></div>
+      <div class="panel"><div class="ph"><h3>Stock on hand</h3><span class="lbl" id="spSum"></span></div><div class="list" id="spList"></div></div>
+      <div class="panel"><div class="ph"><h3>Purchase requests</h3><button class="btn sm" id="oRep">Replace missing items…</button></div><div class="list" id="oList"></div></div>`);
+    $('#spNew').onclick = () => supplyForm();
+    $('#oNew').onclick = () => orderForm();
+    $('#oRep').onclick = replaceMissing;
+    $('#spList').onclick = e => {
+      const b = e.target.closest('[data-move]'); if (b) { e.stopPropagation(); return moveForm(S.supplies.find(s => s.id === b.dataset.sid), b.dataset.move); }
+      const o = e.target.closest('[data-reorder]'); if (o) { e.stopPropagation(); const s = S.supplies.find(x => x.id === o.dataset.reorder); return orderForm(null, { kind: 'supply', refId: s.id, label: s.name, qty: n(s.reorderQty) || 1, estCost: n(s.reorderQty) * n(s.unitCost), reason: `Below reorder level (${n(s.onHand)} ${s.unit || ''} left)` }); }
+      const r = e.target.closest('[data-sid]'); if (r) supplyForm(S.supplies.find(s => s.id === r.dataset.sid));
+    };
+    $('#oList').onclick = e => { const r = e.target.closest('[data-oid]'); if (r) orderForm(S.orders.find(o => o.id === r.dataset.oid)); };
+  },
+  update() {
+    const L = [...S.supplies].sort((a, b) => (n(a.onHand) <= n(a.reorderLevel) ? 0 : 1) - (n(b.onHand) <= n(b.reorderLevel) ? 0 : 1) || a.name.localeCompare(b.name));
+    $('#spSum').textContent = `${L.filter(s => n(s.onHand) <= n(s.reorderLevel)).length} to reorder`;
+    $('#spList').innerHTML = L.length ? L.map(s => { const low = n(s.onHand) <= n(s.reorderLevel); const pend = S.orders.some(o => o.refId === s.id && !['Received','Cancelled'].includes(o.status));
+      const pct = Math.min(100, n(s.onHand) / Math.max(1, n(s.reorderLevel) * 2) * 100);
+      return `<div class="row" data-sid="${s.id}"><span class="pill ${low ? 'p-warn' : 'p-ok'}">${low ? 'Low' : 'OK'}</span>
+        <div class="main"><div class="t">${esc(s.name)}</div><div class="m"><span class="num">${n(s.onHand).toLocaleString()} ${esc(s.unit || '')}</span> · reorder at ${n(s.reorderLevel)}${s.location ? ' · ' + esc(s.location) : ''}${pend ? ' · order pending' : ''}</div><div class="bar ${low ? 'amber' : ''}" style="margin-top:6px;max-width:240px"><span style="width:${pct}%"></span></div></div>
+        <div class="r" style="flex-direction:row;flex-wrap:wrap;justify-content:flex-end"><button class="btn sm" data-move="out" data-sid="${s.id}">Use</button><button class="btn sm" data-move="in" data-sid="${s.id}">Receive</button>${low && !pend ? `<button class="btn sm primary" data-reorder="${s.id}">Reorder</button>` : ''}</div></div>`; }).join('')
+      : `<div class="empty"><strong>No supplies tracked yet</strong>Add the items you buy repeatedly. Diesel for the generator is usually the first one worth tracking.</div>`;
+    const O = [...S.orders].sort((a, b) => (ORD_STATUS.indexOf(a.status) >= 3) - (ORD_STATUS.indexOf(b.status) >= 3) || (b.requestedAt || '').localeCompare(a.requestedAt || ''));
+    const cls = { Requested: 'p-info', Approved: 'p-info', Ordered: 'p-warn', Received: 'p-ok', Cancelled: 'p-mute' };
+    $('#oList').innerHTML = O.length ? O.map(o => `<div class="row" data-oid="${o.id}"><span class="pill ${cls[o.status]}">${esc(o.status)}</span>
+      <div class="main"><div class="t">${esc(o.label)} × <span class="num">${n(o.qty)}</span></div><div class="m">${o.kind === 'asset' ? 'Replacement' : 'Supply'} · ${fmtDate(o.requestedAt)}${o.reason ? ' · ' + esc(o.reason) : ''}</div></div>
+      <div class="r num" style="font-weight:600">${o.estCost ? money(o.estCost) : ''}</div></div>`).join('')
+      : `<div class="empty">No purchase requests. Use “Reorder” on a low supply, or “Replace missing items” to budget for stolen equipment.</div>`;
+  }
+};
+function supplyForm(s) {
+  const isNew = !s; s = s || { onHand: 0, reorderLevel: 0, reorderQty: 0, moves: [] };
+  const st = settings();
+  modal(isNew ? 'Add supply' : s.name, `<div class="fields">
+    <div class="f wide"><label for="sName">Name</label><input id="sName" value="${esc(s.name || '')}" placeholder="e.g. Diesel (AGO)"></div>
+    <div class="f"><label for="sUnit">Unit</label><input id="sUnit" value="${esc(s.unit || '')}" placeholder="litres, packs, pcs"></div>
+    <div class="f"><label for="sOn">On hand</label><input id="sOn" type="number" min="0" value="${n(s.onHand)}"></div>
+    <div class="f"><label for="sLvl">Reorder when at or below</label><input id="sLvl" type="number" min="0" value="${n(s.reorderLevel)}"></div>
+    <div class="f"><label for="sRq">Reorder quantity</label><input id="sRq" type="number" min="0" value="${n(s.reorderQty)}"></div>
+    <div class="f"><label for="sCost">Unit cost (${esc(st.currency)})</label><input id="sCost" type="number" min="0" inputmode="decimal" value="${s.unitCost ?? ''}"></div>
+    <div class="f"><label for="sSup">Supplier</label><input id="sSup" value="${esc(s.supplier || '')}"></div>
+    <div class="f"><label for="sLoc">Kept in</label><input id="sLoc" list="sLocs" value="${esc(s.location || '')}"><datalist id="sLocs">${st.locations.map(l => `<option value="${esc(l)}">`).join('')}</datalist></div></div>
+    ${(s.moves || []).length ? `<div><div class="lbl">Recent movements</div><div class="mini-list">${[...s.moves].reverse().slice(0, 12).map(mv => `<div class="it"><span>${fmtDate(mv.date)} · ${esc(mv.note || (mv.delta > 0 ? 'Received' : 'Used'))}</span><span class="num" style="font-weight:600;color:${mv.delta > 0 ? 'var(--ok)' : 'var(--ink)'}">${mv.delta > 0 ? '+' : ''}${mv.delta}</span></div>`).join('')}</div></div>` : ''}`,
+    `${!isNew ? '<button class="btn danger" id="sDel" style="margin-right:auto">Delete</button>' : ''}<button class="btn" data-close>Cancel</button><button class="btn primary" id="sSave">Save</button>`, ov => {
+      const del = $('#sDel', ov); if (del) del.onclick = () => confirmBox('Delete this supply?', 'Its movement history will be removed.', 'Delete', () => remove(COL.supplies, s.id), true);
+      $('#sSave', ov).onclick = async () => {
+        const name = val('sName'); if (!name) return toast('Give the supply a name.');
+        const data = Object.assign({}, s, { name, unit: val('sUnit'), onHand: n(val('sOn')), reorderLevel: n(val('sLvl')), reorderQty: n(val('sRq')), unitCost: val('sCost') === '' ? null : n(val('sCost')), supplier: val('sSup'), location: val('sLoc'), updatedAt: new Date().toISOString() });
+        delete data.id; $('#sSave', ov).disabled = true;
+        try { await put(COL.supplies, s.id, data); closeModal(); toast('Saved'); } catch (e) { $('#sSave', ov).disabled = false; }
+      };
+    });
+}
+function moveForm(s, dir) {
+  modal(dir === 'in' ? `Receive ${s.name}` : `Use ${s.name}`, `<p style="margin:0;color:var(--muted)">${n(s.onHand)} ${esc(s.unit || '')} on hand now.</p>
+    <div class="fields"><div class="f"><label for="vQ">Quantity (${esc(s.unit || 'units')})</label><input id="vQ" type="number" min="0" inputmode="decimal"></div>
+    <div class="f wide"><label for="vN">Note</label><input id="vN" placeholder="${dir === 'in' ? 'Supplier, invoice no.' : 'Event, who collected it'}"></div></div>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn primary" id="vGo">${dir === 'in' ? 'Add to stock' : 'Take from stock'}</button>`, ov => {
+      $('#vGo', ov).onclick = async () => {
+        const q = n(val('vQ')); if (q <= 0) return toast('Enter a quantity.');
+        const delta = dir === 'in' ? q : -q; const fresh = S.supplies.find(x => x.id === s.id) || s;
+        $('#vGo', ov).disabled = true;
+        try { await patch(COL.supplies, s.id, { onHand: Math.max(0, n(fresh.onHand) + delta), moves: [...(fresh.moves || []), { date: today(), delta, note: val('vN'), by: myId }].slice(-40) }); closeModal(); toast(dir === 'in' ? 'Stock added' : 'Stock used'); }
+        catch (e) { $('#vGo', ov).disabled = false; }
+      };
+    });
+}
+function orderForm(o, preset) {
+  const isNew = !o; o = o || Object.assign({ kind: 'supply', qty: 1, status: 'Requested' }, preset || {});
+  modal(isNew ? 'Purchase request' : o.label, `<div class="fields">
+    <div class="f wide"><label for="oLab">Item</label><input id="oLab" value="${esc(o.label || '')}"></div>
+    <div class="f"><label for="oQty">Quantity</label><input id="oQty" type="number" min="1" value="${n(o.qty) || 1}"></div>
+    <div class="f"><label for="oCost">Estimated cost (${esc(settings().currency)})</label><input id="oCost" type="number" min="0" value="${o.estCost ?? ''}"></div>
+    <div class="f"><label for="oStat">Status</label><select id="oStat">${opts(ORD_STATUS, o.status)}</select></div>
+    <div class="f"><label for="oSup">Supplier</label><input id="oSup" value="${esc(o.supplier || '')}"></div>
+    <div class="f wide"><label for="oWhy">Reason</label><input id="oWhy" value="${esc(o.reason || '')}"></div></div>
+    ${o.refId ? `<p class="hint" style="margin:0;color:var(--muted);font-size:.86rem">Setting the status to Received ${o.kind === 'asset' ? 'reduces the missing count on the register record' : 'adds the quantity to stock on hand'}.</p>` : ''}`,
+    `${!isNew ? '<button class="btn danger" id="oDel" style="margin-right:auto">Delete</button>' : ''}<button class="btn" data-close>Cancel</button><button class="btn primary" id="oSave">Save</button>`, ov => {
+      const del = $('#oDel', ov); if (del) del.onclick = () => confirmBox('Delete this request?', '', 'Delete', () => remove(COL.orders, o.id), true);
+      $('#oSave', ov).onclick = async () => {
+        const label = val('oLab'); if (!label) return toast('Name the item.');
+        const status = val('oStat'); const qty = Math.max(1, n(val('oQty')));
+        const nowReceived = status === 'Received' && o.status !== 'Received';
+        const data = Object.assign({}, o, { label, qty, estCost: val('oCost') === '' ? null : n(val('oCost')), status, supplier: val('oSup'), reason: val('oWhy'), updatedAt: new Date().toISOString(), history: [...(o.history || []), ...(status !== o.status || isNew ? [{ status, at: new Date().toISOString(), by: myId }] : [])].slice(-20) });
+        delete data.id; if (isNew) { data.requestedAt = new Date().toISOString(); data.requestedBy = myId; }
+        $('#oSave', ov).disabled = true;
+        try {
+          await put(COL.orders, o.id, data);
+          if (nowReceived && o.refId) {
+            if (o.kind === 'supply') { const s = S.supplies.find(x => x.id === o.refId); if (s) await patch(COL.supplies, s.id, { onHand: n(s.onHand) + qty, moves: [...(s.moves || []), { date: today(), delta: qty, note: 'Received: purchase request', by: myId }].slice(-40) }); }
+            else { const a = assetById(o.refId); if (a) await patch(COL.assets, a.id, { missing: Math.max(0, n(a.missing) - qty) }); }
+          }
+          closeModal(); toast('Saved');
+        } catch (e) { $('#oSave', ov).disabled = false; }
+      };
+    });
+}
+function replaceMissing() {
+  const M = activeAssets().filter(a => n(a.missing) > 0 && !S.orders.some(o => o.refId === a.id && !['Received','Cancelled'].includes(o.status)));
+  if (!M.length) return toast('No missing items without a pending order.');
+  modal('Replace missing items', `<p style="margin:0">Tick the items to request replacements for. Quantities default to the units missing.</p>
+    <div class="mini-list">${M.map(a => `<label class="it" style="cursor:pointer"><span style="display:flex;gap:8px;align-items:center"><input type="checkbox" value="${a.id}" checked> ${esc(a.name)} · ${esc(a.location || '')}</span><span class="num">${n(a.missing)} × ${money(a.unitValue)}</span></label>`).join('')}</div>`,
+    `<button class="btn" data-close>Cancel</button><button class="btn primary" id="rmGo">Create requests</button>`, ov => {
+      $('#rmGo', ov).onclick = async () => {
+        $('#rmGo', ov).disabled = true;
+        try { for (const cb of $$('input:checked', ov)) { const a = assetById(cb.value); await put(COL.orders, null, { kind: 'asset', refId: a.id, label: a.name, qty: n(a.missing), estCost: n(a.missing) * n(a.unitValue), status: 'Requested', reason: `Replace missing (${a.tag}, ${a.location || ''})`, requestedAt: new Date().toISOString(), requestedBy: myId, history: [] }); } closeModal(); toast('Requests created'); }
+        catch (e) { $('#rmGo', ov).disabled = false; }
+      };
+    });
+}
+
+/* =========================================================
+   GUIDE & SETUP
+   ========================================================= */
+T.setup = {
+  shell(m) {
+    m.insertAdjacentHTML('beforeend', `
+      <div class="grid2" style="align-items:start">
+      <div class="panel"><div class="ph"><h3>How to run the first stock-take</h3></div><div class="pb guide">
+        <ol>
+          <li><div><b>Secure the building first.</b><p>Change or add locks on stores and AV rooms, brief the guards, and log any losses already discovered as incidents before counting.</p></div></li>
+          <li><div><b>Freeze movement.</b><p>No item leaves or moves between rooms until the count is closed. Anything that must move is noted.</p></div></li>
+          <li><div><b>Map the zones.</b><p>Add every room, store and outdoor area under Locations below. Each becomes a counting zone.</p></div></li>
+          <li><div><b>Register as you walk.</b><p>Teams of two per zone: one counts and tags, the other records on a phone. Add each item with its location, quantity, condition and a photo. Write the tag number on the item with a marker or sticker.</p></div></li>
+          <li><div><b>Start a stock-take.</b><p>Once a zone is registered, open a stock-take for it. A different pair recounts, tapping “All” or entering what they actually see.</p></div></li>
+          <li><div><b>Recount the gaps.</b><p>Filter by “Short”. Search the building for those items before accepting the loss.</p></div></li>
+          <li><div><b>Reconcile and close.</b><p>Closing updates the register and logs one incident listing every shortage with its value, ready for police and insurance.</p></div></li>
+          <li><div><b>Repeat on a cycle.</b><p>A full count monthly while security is uncertain, then quarterly. Spot-check high-value rooms weekly.</p></div></li>
+        </ol>
+        <div><div class="lbl">Record for every item</div><ul><li>Name, make/model and serial number (TVs, projectors, generators, ACs)</li><li>Exact location and quantity</li><li>Condition: Good, Fair, Poor or Broken</li><li>Replacement value, so losses can be totalled</li><li>A photo and any distinguishing marks</li></ul></div>
+      </div></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="panel"><div class="ph"><h3>Appearance</h3></div><div class="pb appear"><span style="flex:1;min-width:0"><span class="lbl">Colour palette</span><br><b id="appearName"></b></span><button class="btn" id="gPal">Change palette</button></div></div>
+        <div class="panel"><div class="ph"><h3>Venue details</h3></div><div class="pb fields">
+          <div class="f wide"><label for="gOrg">Venue name</label><input id="gOrg" placeholder="e.g. Grand Pavilion Conference Centre"></div>
+          <div class="f"><label for="gCur">Currency symbol</label><input id="gCur" maxlength="4"></div>
+          <div class="f" style="justify-content:flex-end"><button class="btn primary" id="gSave">Save details</button></div></div></div>
+        <div class="panel"><div class="ph"><h3>Locations</h3><button class="btn sm" id="gDef">Add typical areas</button></div><div class="pb" style="display:flex;flex-direction:column;gap:10px"><div class="editlist" id="gLocs"></div>
+          <div class="toolbar"><input type="search" id="gLocIn" placeholder="New location, e.g. Hall B Store" style="flex:1 1 180px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)"><button class="btn sm" id="gLocAdd">Add</button></div></div></div>
+        <div class="panel"><div class="ph"><h3>Categories</h3></div><div class="pb" style="display:flex;flex-direction:column;gap:10px"><div class="editlist" id="gCats"></div>
+          <div class="toolbar"><input type="search" id="gCatIn" placeholder="New category" style="flex:1 1 180px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg)"><button class="btn sm" id="gCatAdd">Add</button></div></div></div>
+        <div class="panel"><div class="ph"><h3>Sharing with staff</h3></div><div class="pb" style="font-size:.9rem;display:flex;flex-direction:column;gap:6px">
+          <p style="margin:0">Share this page with your team. Give counters <b>Contributor</b> access so they can record counts; managers who change setup need <b>Editor</b>. Every count is stamped with who recorded it.</p></div></div>
+      </div></div>`);
+    const saveSettings = async patchObj => { const cur = settings(); try { await put('config', 'main', Object.assign({}, cur, patchObj)); } catch (e) {} };
+    this.save = saveSettings;
+    $('#gPal').onclick = openPalettes; applyPalette(palId);
+    $('#gSave').onclick = async () => { await saveSettings({ orgName: val('gOrg'), currency: val('gCur') || '₦' }); toast('Saved'); };
+    $('#gDef').onclick = () => { const cur = settings().locations; saveSettings({ locations: [...new Set([...cur, ...DEFAULT_LOCATIONS])] }); };
+    const addTo = (key, inp) => { const v = val(inp); if (!v) return; $('#' + inp).value = ''; const cur = settings()[key] || []; if (!cur.includes(v)) saveSettings({ [key]: [...cur, v] }); };
+    $('#gLocAdd').onclick = () => addTo('locations', 'gLocIn'); $('#gLocIn').onkeydown = e => { if (e.key === 'Enter') addTo('locations', 'gLocIn'); };
+    $('#gCatAdd').onclick = () => addTo('categories', 'gCatIn'); $('#gCatIn').onkeydown = e => { if (e.key === 'Enter') addTo('categories', 'gCatIn'); };
+    m.addEventListener('click', e => { const b = e.target.closest('[data-rmset]'); if (b) { const [key, v] = [b.dataset.rmset, b.dataset.v]; saveSettings({ [key]: settings()[key].filter(x => x !== v) }); } });
+    this.filled = false;
+  },
+  update() {
+    const st = settings();
+    if (!this.filled && (S.settings || loaded.settings)) { $('#gOrg').value = st.orgName || ''; $('#gCur').value = st.currency || '₦'; this.filled = true; }
+    else if (!this.filled) { $('#gCur').value = st.currency; }
+    const used = k => S.assets.filter(a => a.location === k).length;
+    $('#gLocs').innerHTML = st.locations.length ? st.locations.map(l => `<span class="x">${esc(l)} <span class="num" style="color:var(--muted);font-size:.78rem">${used(l) || ''}</span><button data-rmset="locations" data-v="${esc(l)}" aria-label="Remove ${esc(l)}">×</button></span>`).join('') : `<span style="color:var(--muted);font-size:.88rem">No locations yet. Add each hall, room, store and outdoor area, or start from the typical list.</span>`;
+    $('#gCats').innerHTML = st.categories.map(c => `<span class="x">${esc(c)}<button data-rmset="categories" data-v="${esc(c)}" aria-label="Remove ${esc(c)}">×</button></span>`).join('');
+  }
+};
+
+/* ---------- boot ---------- */
+let saved = 'overview'; try { saved = localStorage.getItem('var-tab') || 'overview'; } catch (e) {}
+if (!T[saved]) saved = 'overview';
+go(saved);
+
+(async () => {
+  const use = name => (window.claude && window.claude.use) ? window.claude.use(name).catch(() => null) : Promise.resolve(null);
+  [db, user, downloads, store] = await Promise.all([use('db'), use('user'), use('downloads'), use('assets')]);
+  if (!db) { dbState = 'off'; const b = $('#dbBanner'); if (b) b.textContent = 'The shared register can’t be reached in this view. Open this page while signed in to claude.ai to see and record items.'; return; }
+  if (user) {
+    try { myId = await user.id(); } catch (e) {}
+    try { const me = await user.me(); if (me && me.id) { myId = myId || me.id; names[me.id] = me.name || 'You'; $('#who').textContent = me.name ? 'Signed in as ' + me.name : ''; } } catch (e) {}
+    try { const cw = await user.can('data.write'); if (cw === false) { readOnly = true; $('#who').textContent += ' · view only'; } } catch (e) {}
+  }
+  const onErr = e => { if (e && (e.code === 'revoked')) { dbState = 'off'; } };
+  db.doc('config/main').onSnapshot(s => { S.settings = s.exists ? Object.assign({ orgName:'', currency:'₦', locations:[], categories: DEFAULT_CATEGORIES }, s.data()) : null; loaded.settings = true; schedule(); }, onErr);
+  const keys = { assets:'assets', takes:'takes', incidents:'incidents', maint:'maint', supplies:'supplies', orders:'orders' };
+  Object.keys(keys).forEach(k => db.collection(COL[k]).onSnapshot(snap => {
+    S[k] = snap.docs.map(d => Object.assign({ id: d.id }, d.data())); loaded[k] = true;
+    if (k === 'assets') noteIds(S.assets.map(a => a.createdBy));
+    schedule();
+  }, onErr));
+  dbState = 'ready'; const b = $('#dbBanner'); if (b) b.remove();
+})();
+})();
+</script>
+
+</body></html>
